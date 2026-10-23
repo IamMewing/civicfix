@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CivicFix — PRD</title>
+<style>
+  :root {
+    --bg: #f7f5f0; --surface: #ffffff; --surface-2: #f0ede6; --text: #1c1a16;
+    --text-dim: #5c574c; --border: #ddd7c8; --accent: #c2410c; --accent-soft: #fde9d9;
+    --verify: #0e6e55; --verify-soft: #dcf2ea; --now: #1d4ed8; --now-soft: #dbe6fd;
+    --later: #6b7280; --later-soft: #e9e9eb; --cut: #b91c1c; --cut-soft: #fbe0df;
+    --flag: #7c3aed; --flag-soft: #ede8fd;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #141310; --surface: #1d1b17; --surface-2: #26241f; --text: #f2efe8;
+      --text-dim: #b5ae9e; --border: #38352c; --accent: #fb923c; --accent-soft: #3a2615;
+      --verify: #4ade80; --verify-soft: #15291f; --now: #93c5fd; --now-soft: #16223f;
+      --later: #9ca3af; --later-soft: #232323; --cut: #fca5a5; --cut-soft: #341616;
+      --flag: #c4b5fd; --flag-soft: #271f3d;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #141310; --surface: #1d1b17; --surface-2: #26241f; --text: #f2efe8;
+    --text-dim: #b5ae9e; --border: #38352c; --accent: #fb923c; --accent-soft: #3a2615;
+    --verify: #4ade80; --verify-soft: #15291f; --now: #93c5fd; --now-soft: #16223f;
+    --later: #9ca3af; --later-soft: #232323; --cut: #fca5a5; --cut-soft: #341616;
+    --flag: #c4b5fd; --flag-soft: #271f3d;
+  }
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    margin: 0; padding: 0 16px 64px; line-height: 1.55;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; }
+  header { padding: 48px 0 16px; }
+  .eyebrow {
+    display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--accent); background: var(--accent-soft);
+    padding: 4px 10px; border-radius: 999px; margin-bottom: 14px;
+  }
+  h1 { font-size: clamp(30px, 6.5vw, 40px); margin: 0 0 10px; letter-spacing: -0.02em; }
+  .tagline { font-size: 17px; color: var(--text-dim); max-width: 58ch; margin: 0; }
+  section { margin-top: 40px; }
+  h2 {
+    font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--text-dim); margin: 0 0 12px;
+  }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 22px 24px; }
+  .flag {
+    background: var(--flag-soft); border: 1px solid var(--flag); border-radius: 12px;
+    padding: 14px 18px; font-size: 14px; color: var(--text);
+  }
+  .flag b { color: var(--flag); }
+
+  svg { width: 100%; height: auto; display: block; }
+  .node-title { font-size: 15px; font-weight: 700; fill: var(--text); }
+  .node-sub { font-size: 12px; fill: var(--text-dim); }
+  .node-box { fill: var(--surface); stroke: var(--border); stroke-width: 1.5; }
+  .node-box.pipeline { fill: var(--verify-soft); stroke: var(--verify); }
+  .node-box.accent { fill: var(--accent-soft); stroke: var(--accent); }
+  .substep { fill: var(--surface); stroke: var(--verify); stroke-width: 1.2; }
+  .substep-text { font-size: 11px; fill: var(--text); font-weight: 600; }
+  .arrow { stroke: var(--text-dim); stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+  figcaption { text-align: center; font-size: 13px; color: var(--text-dim); margin-top: 10px; }
+
+  .boundary { display: grid; gap: 14px; }
+  details {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
+  }
+  details[open] { border-color: var(--now); }
+  summary {
+    cursor: pointer; padding: 14px 18px; font-weight: 700; list-style: none;
+    display: flex; align-items: center; gap: 10px;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::before { content: "▸"; display: inline-block; transition: transform 0.15s ease; color: var(--text-dim); }
+  details[open] summary::before { transform: rotate(90deg); }
+  .tag {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+    padding: 2px 9px; border-radius: 999px;
+  }
+  .tag.now { background: var(--now-soft); color: var(--now); }
+  .tag.later { background: var(--later-soft); color: var(--later); }
+  .tag.cut { background: var(--cut-soft); color: var(--cut); }
+  .tag.verify { background: var(--verify-soft); color: var(--verify); }
+  details .body { padding: 0 18px 18px; color: var(--text-dim); }
+  details ul { margin: 0; padding-left: 20px; }
+  details li { margin-bottom: 8px; }
+  details li:last-child { margin-bottom: 0; }
+  details li b { color: var(--text); }
+
+  .states { display: grid; gap: 10px; }
+  .state-row {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+    padding: 12px 16px; font-size: 14px;
+  }
+  .state-row b { color: var(--accent); }
+
+  .footer-note {
+    margin-top: 56px; font-size: 13px; color: var(--text-dim);
+    border-top: 1px solid var(--border); padding-top: 16px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <span class="eyebrow">PRD · Draft</span>
+    <h1>CivicFix</h1>
+    <p class="tagline">The complete product definition: four screens, one loop, no accounts.</p>
+  </header>
+
+  <section>
+    <h2>The Core Journey</h2>
+    <figure>
+      <svg viewBox="0 0 640 1020" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Journey diagram: capture, animated pipeline with three agent sub-steps, review, hand-off">
+        <defs>
+          <marker id="arrowhead" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+            <path d="M0,0 L8,4 L0,8 Z" fill="currentColor" style="color:var(--text-dim)"/>
+          </marker>
+        </defs>
+
+        <!-- 1. Capture -->
+        <rect class="node-box" x="60" y="10" width="520" height="104" rx="14"/>
+        <text class="node-title" x="320" y="42" text-anchor="middle">1 · Capture</text>
+        <text class="node-sub" x="320" y="64" text-anchor="middle">Photo (camera/upload) + optional description</text>
+        <text class="node-sub" x="320" y="82" text-anchor="middle">+ location permission · no login</text>
+
+        <path class="arrow" d="M320,114 L320,146"/>
+
+        <!-- 2. Pipeline animation -->
+        <rect class="node-box pipeline" x="60" y="146" width="520" height="260" rx="14"/>
+        <text class="node-title" x="320" y="176" text-anchor="middle">2 · Pipeline animation</text>
+        <text class="node-sub" x="320" y="196" text-anchor="middle">Each agent step shown as it actually happens</text>
+
+        <rect class="substep" x="84" y="216" width="150" height="66" rx="10"/>
+        <text class="substep-text" x="159" y="244" text-anchor="middle">Vision agent</text>
+        <text class="substep-text" x="159" y="260" text-anchor="middle" style="font-weight:400">classifies issue</text>
+
+        <path class="arrow" d="M234,249 L258,249"/>
+
+        <rect class="substep" x="258" y="216" width="150" height="66" rx="10"/>
+        <text class="substep-text" x="333" y="244" text-anchor="middle">Research agent</text>
+        <text class="substep-text" x="333" y="260" text-anchor="middle" style="font-weight:400">finds + cites authority</text>
+
+        <path class="arrow" d="M408,249 L432,249"/>
+
+        <rect class="substep" x="432" y="216" width="150" height="66" rx="10"/>
+        <text class="substep-text" x="507" y="244" text-anchor="middle">Complaint agent</text>
+        <text class="substep-text" x="507" y="260" text-anchor="middle" style="font-weight:400">drafts complaint</text>
+
+        <text class="node-sub" x="320" y="320" text-anchor="middle">Low-confidence classification → category left open</text>
+        <text class="node-sub" x="320" y="338" text-anchor="middle">for manual pick, not an error</text>
+        <text class="node-sub" x="320" y="366" text-anchor="middle">No verified authority → falls back to general GHMC portal</text>
+
+        <path class="arrow" d="M320,406 L320,438"/>
+
+        <!-- 3. Review -->
+        <rect class="node-box" x="60" y="438" width="520" height="104" rx="14"/>
+        <text class="node-title" x="320" y="470" text-anchor="middle">3 · Review</text>
+        <text class="node-sub" x="320" y="492" text-anchor="middle">Drafted complaint, every field editable —</text>
+        <text class="node-sub" x="320" y="510" text-anchor="middle">including category</text>
+
+        <path class="arrow" d="M320,542 L320,574"/>
+
+        <!-- 4. Hand-off -->
+        <rect class="node-box accent" x="60" y="574" width="520" height="104" rx="14"/>
+        <text class="node-title" x="320" y="606" text-anchor="middle">4 · Hand-off</text>
+        <text class="node-sub" x="320" y="628" text-anchor="middle">Opens the real official channel — user</text>
+        <text class="node-sub" x="320" y="646" text-anchor="middle">files it themselves, for real</text>
+
+        <text class="node-sub" x="320" y="710" text-anchor="middle">Success = a real complaint, about a real problem, filed with</text>
+        <text class="node-sub" x="320" y="728" text-anchor="middle">the correct authority — shown live in the demo video.</text>
+      </svg>
+      <figcaption>Four states in one guided flow — not separate pages with navigation.</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2>Flagged for your confirmation</h2>
+    <div class="flag">
+      <b>Synthesis, not your explicit words:</b> category selection is folded into the Review step (editable field, left open when confidence is low) rather than a separate manual-selection screen before the photo. This reconciles "AI auto-classifies" with "let me pick it myself if needed" without adding an extra screen. If you pictured a separate category-picker screen, say so and I'll adjust.
+    </div>
+  </section>
+
+  <section>
+    <h2>States and Boundaries</h2>
+    <div class="states">
+      <div class="state-row"><b>First use</b> — Capture screen, photo prompt front and center, nothing else required.</div>
+      <div class="state-row"><b>Low-confidence classification</b> — category field left open on Review for manual pick, no error shown.</div>
+      <div class="state-row"><b>No verified authority found</b> — falls back to the general GHMC grievance portal, clearly labeled as a fallback.</div>
+      <div class="state-row"><b>Location permission denied</b> — flow continues; complaint notes "location not provided."</div>
+      <div class="state-row"><b>Success</b> — real official portal opens with the complaint ready; filed for real on camera for the demo.</div>
+      <div class="state-row"><b>Persistence</b> — none. No accounts, no saved history for the POC.</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Scope of This Build</h2>
+    <div class="boundary">
+      <details open>
+        <summary><span class="tag now">Building</span> In this proof of concept</summary>
+        <div class="body">
+          <ul>
+            <li>Single-flow mobile web app: Capture → Pipeline animation → Review (editable) → Hand-off.</li>
+            <li>Photo capture/upload, optional text description, browser geolocation.</li>
+            <li>Vision classification into 3 categories, with graceful manual fallback on low confidence.</li>
+            <li>Grounded authority research with cited sources, general-portal fallback when unverified.</li>
+            <li>Editable complaint draft including filer name/contact.</li>
+            <li>Hand-off link to the real official channel (or fallback portal).</li>
+          </ul>
+        </div>
+      </details>
+      <details>
+        <summary><span class="tag later">Deferred</span> Implied, but not now</summary>
+        <div class="body">
+          <ul>
+            <li><b>Accounts/login + saved history</b> — no reason to persist per-user data for a single demo.</li>
+            <li><b>Voice input</b> — typed description is the reliable v1 path; voice is a polish layer after the core loop works.</li>
+            <li><b>Cities beyond Hyderabad</b> — architecture allows extension; only Hyderabad is verified here.</li>
+          </ul>
+        </div>
+      </details>
+      <details>
+        <summary><span class="tag cut">Non-goals</span> Explicitly not doing this</summary>
+        <div class="body">
+          <ul>
+            <li><b>Automated government submission / live status tracking.</b> No public API; faking it misrepresents functionality.</li>
+            <li><b>Citing specific municipal code/legal sections.</b> Real hallucination risk — replaced with cited-source process instead.</li>
+            <li><b>Native Android/iOS app.</b> Browser APIs cover everything needed.</li>
+            <li><b>Login/accounts for v1.</b> See Product Decisions in <code>prd.md</code>.</li>
+          </ul>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <p class="footer-note">PRD for CivicFix · Build With AI: Basics hackathon · Markdown version (<code>prd.md</code>) is canonical; this page is a visual companion for review.</p>
+
+</div>
+</body>
+</html>

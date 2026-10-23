@@ -1,0 +1,95 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens — devpost/spec.md > Look and Feel, revised for the premium landing
+ * page + tool overhaul. Civic-bold palette: marigold for the brand/hero moments,
+ * warm ink/paper instead of pure black/white, and three fixed accent colors mapped
+ * to the three issue categories (used identically on the landing page's category
+ * cards and inside the tool's result cards, so the two halves read as one product).
+ */
+:root {
+  --ink: #16130f;
+  --paper: #fff8ec;
+  --line: #e9ded0;
+
+  --amber: #f2a900;
+  --amber-deep: #c98700;
+
+  --verified: #1e8a4c;
+  --verified-soft: #e3f3e8;
+
+  --signal: #2554e8;
+  --signal-soft: #e8edfd;
+
+  --rust: #c1440e;
+  --rust-soft: #fbe8de;
+
+  --gold: #d98a00;
+  --gold-soft: #fdf0dc;
+
+  --slate: #4a4336;
+
+  --background: var(--paper);
+  --foreground: var(--ink);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ink: #faf1df;
+    --paper: #171209;
+    --line: #3a3225;
+
+    --verified-soft: #112b1c;
+    --signal-soft: #10183a;
+    --rust-soft: #3a1708;
+    --gold-soft: #3a2503;
+
+    --slate: #cdc2ab;
+
+    --background: var(--paper);
+    --foreground: var(--ink);
+  }
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-ink: var(--ink);
+  --color-paper: var(--paper);
+  --color-line: var(--line);
+
+  --color-amber: var(--amber);
+  --color-amber-deep: var(--amber-deep);
+
+  --color-verified: var(--verified);
+  --color-verified-soft: var(--verified-soft);
+
+  --color-signal: var(--signal);
+  --color-signal-soft: var(--signal-soft);
+
+  --color-rust: var(--rust);
+  --color-rust-soft: var(--rust-soft);
+
+  --color-gold: var(--gold);
+  --color-gold-soft: var(--gold-soft);
+
+  --color-slate: var(--slate);
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-archivo);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+}
+
+::selection {
+  background: var(--amber);
+  color: var(--ink);
+}

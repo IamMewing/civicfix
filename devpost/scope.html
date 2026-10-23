@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CivicFix — Scope</title>
+<style>
+  :root {
+    --bg: #f7f5f0;
+    --surface: #ffffff;
+    --surface-2: #f0ede6;
+    --text: #1c1a16;
+    --text-dim: #5c574c;
+    --border: #ddd7c8;
+    --accent: #c2410c;       /* pothole amber-orange */
+    --accent-soft: #fde9d9;
+    --verify: #0e6e55;       /* verified-source green */
+    --verify-soft: #dcf2ea;
+    --now: #1d4ed8;
+    --now-soft: #dbe6fd;
+    --later: #6b7280;
+    --later-soft: #e9e9eb;
+    --cut: #b91c1c;
+    --cut-soft: #fbe0df;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #141310;
+      --surface: #1d1b17;
+      --surface-2: #26241f;
+      --text: #f2efe8;
+      --text-dim: #b5ae9e;
+      --border: #38352c;
+      --accent: #fb923c;
+      --accent-soft: #3a2615;
+      --verify: #4ade80;
+      --verify-soft: #15291f;
+      --now: #93c5fd;
+      --now-soft: #16223f;
+      --later: #9ca3af;
+      --later-soft: #232323;
+      --cut: #fca5a5;
+      --cut-soft: #341616;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #141310; --surface: #1d1b17; --surface-2: #26241f; --text: #f2efe8;
+    --text-dim: #b5ae9e; --border: #38352c; --accent: #fb923c; --accent-soft: #3a2615;
+    --verify: #4ade80; --verify-soft: #15291f; --now: #93c5fd; --now-soft: #16223f;
+    --later: #9ca3af; --later-soft: #232323; --cut: #fca5a5; --cut-soft: #341616;
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    margin: 0;
+    padding: 0 16px 64px;
+    line-height: 1.55;
+  }
+  .wrap { max-width: 760px; margin: 0 auto; }
+
+  header { padding: 48px 0 16px; }
+  .eyebrow {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--accent);
+    background: var(--accent-soft);
+    padding: 4px 10px;
+    border-radius: 999px;
+    margin-bottom: 14px;
+  }
+  h1 {
+    font-size: clamp(32px, 7vw, 44px);
+    margin: 0 0 10px;
+    letter-spacing: -0.02em;
+  }
+  .tagline {
+    font-size: 18px;
+    color: var(--text-dim);
+    max-width: 56ch;
+    margin: 0;
+  }
+
+  section { margin-top: 40px; }
+  h2 {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin: 0 0 12px;
+  }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 22px 24px;
+  }
+  .kernel {
+    background: var(--accent-soft);
+    border: 1px solid var(--accent);
+    border-radius: 14px;
+    padding: 22px 24px;
+    font-size: 17px;
+  }
+  .kernel strong { color: var(--accent); }
+
+  .quote {
+    font-style: italic;
+    border-left: 3px solid var(--accent);
+    padding: 4px 0 4px 16px;
+    color: var(--text-dim);
+    margin: 0;
+  }
+
+  figure { margin: 0; }
+  figcaption { text-align: center; font-size: 13px; color: var(--text-dim); margin-top: 10px; }
+  svg { width: 100%; height: auto; display: block; }
+  .node-title { font-size: 15px; font-weight: 700; fill: var(--text); }
+  .node-sub { font-size: 12.5px; fill: var(--text-dim); }
+  .node-box { fill: var(--surface); stroke: var(--border); stroke-width: 1.5; }
+  .node-box.verify { fill: var(--verify-soft); stroke: var(--verify); }
+  .node-box.accent { fill: var(--accent-soft); stroke: var(--accent); }
+  .arrow { stroke: var(--text-dim); stroke-width: 2; fill: none; marker-end: url(#arrowhead); }
+  .arrow-label { font-size: 11.5px; fill: var(--text-dim); }
+
+  .boundary {
+    display: grid;
+    gap: 14px;
+  }
+  details {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  details[open] { border-color: var(--now); }
+  summary {
+    cursor: pointer;
+    padding: 14px 18px;
+    font-weight: 700;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::before { content: "▸"; display: inline-block; transition: transform 0.15s ease; color: var(--text-dim); }
+  details[open] summary::before { transform: rotate(90deg); }
+  .tag {
+    font-size: 11px; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+    padding: 2px 9px; border-radius: 999px;
+  }
+  .tag.now { background: var(--now-soft); color: var(--now); }
+  .tag.later { background: var(--later-soft); color: var(--later); }
+  .tag.cut { background: var(--cut-soft); color: var(--cut); }
+  details .body { padding: 0 18px 18px; color: var(--text-dim); }
+  details ul { margin: 0; padding-left: 20px; }
+  details li { margin-bottom: 8px; }
+  details li:last-child { margin-bottom: 0; }
+  details li b { color: var(--text); }
+
+  .footer-note {
+    margin-top: 56px;
+    font-size: 13px;
+    color: var(--text-dim);
+    border-top: 1px solid var(--border);
+    padding-top: 16px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <span class="eyebrow">Scope · Draft</span>
+    <h1>CivicFix</h1>
+    <p class="tagline">An AI agent that turns a photo of a real civic problem into a researched, correctly-routed, ready-to-file complaint for the right Hyderabad authority.</p>
+  </header>
+
+  <section>
+    <h2>The Unique Kernel</h2>
+    <div class="kernel">
+      It doesn't explain or summarize a problem — it investigates the <strong>bureaucracy</strong>. Given a photo of a pothole, broken streetlight, or water leak, it researches &mdash; live, with cited sources &mdash; which specific authority is responsible, and produces a complaint that's actually ready to file. The shift: <em>&ldquo;I don't know who handles this&rdquo;</em> &rarr; <em>&ldquo;I researched it &mdash; here's who does, why, and where to file it.&rdquo;</em>
+    </div>
+  </section>
+
+  <section>
+    <h2>Who It's For</h2>
+    <div class="card">
+      <p style="margin-top:0">Hyderabad residents who commute daily and regularly encounter civic hazards &mdash; potholes especially. Today, most people in this position either don't report problems at all, because they don't know whether GHMC, TGSPDCL/TSSPDCL, or HMWSSB handles it, or give up navigating multiple confusing government portals.</p>
+      <p class="quote" style="margin-bottom:0">They've personally hit potholes while traveling, and are aware that pothole-related accidents in the city have killed people. This isn't an abstract prompt.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>The Core Loop</h2>
+    <figure>
+      <svg viewBox="0 0 600 900" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Flow diagram: photo and description, to vision classification, to authority research, to complaint drafting, to human review, to the real official channel">
+        <defs>
+          <marker id="arrowhead" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+            <path d="M0,0 L8,4 L0,8 Z" fill="currentColor" style="color:var(--text-dim)"/>
+          </marker>
+        </defs>
+
+        <!-- Node 1: Input -->
+        <rect class="node-box" x="60" y="10" width="480" height="84" rx="14"/>
+        <text class="node-title" x="300" y="42" text-anchor="middle">📷 Photo + description + location</text>
+        <text class="node-sub" x="300" y="64" text-anchor="middle">Taken on the phone browser, right where the problem is</text>
+
+        <path class="arrow" d="M300,94 L300,126"/>
+
+        <!-- Node 2: Vision classify -->
+        <rect class="node-box" x="60" y="126" width="480" height="84" rx="14"/>
+        <text class="node-title" x="300" y="158" text-anchor="middle">🔎 Vision agent: classify the issue</text>
+        <text class="node-sub" x="300" y="180" text-anchor="middle">Pothole · streetlight · water leak</text>
+
+        <path class="arrow" d="M300,210 L300,242"/>
+
+        <!-- Node 3: Research -->
+        <rect class="node-box verify" x="60" y="242" width="480" height="104" rx="14"/>
+        <text class="node-title" x="300" y="274" text-anchor="middle">🏛️ Research agent: find the authority</text>
+        <text class="node-sub" x="300" y="296" text-anchor="middle">Live search, grounded against verified</text>
+        <text class="node-sub" x="300" y="314" text-anchor="middle">official sources — cites what it used</text>
+
+        <path class="arrow" d="M300,346 L300,378"/>
+
+        <!-- Node 4: Draft -->
+        <rect class="node-box" x="60" y="378" width="480" height="84" rx="14"/>
+        <text class="node-title" x="300" y="410" text-anchor="middle">📝 Complaint agent: draft it</text>
+        <text class="node-sub" x="300" y="432" text-anchor="middle">Issue, location, evidence, category, authority, sources</text>
+
+        <path class="arrow" d="M300,462 L300,494"/>
+
+        <!-- Node 5: Human review -->
+        <rect class="node-box" x="60" y="494" width="480" height="84" rx="14"/>
+        <text class="node-title" x="300" y="526" text-anchor="middle">👤 You review it</text>
+        <text class="node-sub" x="300" y="548" text-anchor="middle">Nothing is sent without you seeing it first</text>
+
+        <path class="arrow" d="M300,578 L300,610"/>
+
+        <!-- Node 6: Official channel -->
+        <rect class="node-box accent" x="60" y="610" width="480" height="104" rx="14"/>
+        <text class="node-title" x="300" y="646" text-anchor="middle">🏢 Real official reporting channel</text>
+        <text class="node-sub" x="300" y="668" text-anchor="middle">You file it for real, on the government's</text>
+        <text class="node-sub" x="300" y="686" text-anchor="middle">own site — no fake submission, ever</text>
+
+        <!-- label of what's NOT built -->
+        <text class="arrow-label" x="300" y="740" text-anchor="middle">No API exists to submit or track status on your behalf —</text>
+        <text class="arrow-label" x="300" y="756" text-anchor="middle">CivicFix hands off honestly instead of faking it.</text>
+      </svg>
+      <figcaption>Comes back to this loop every time they spot a new problem worth reporting.</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2>What &ldquo;Working&rdquo; Looks Like</h2>
+    <div class="card">
+      <p style="margin-top:0">Open CivicFix on a phone → take a real photo of a pothole → add a short description → within moments the issue is identified, the correct Hyderabad authority is named with its official source cited, and a complete complaint is drafted.</p>
+      <p>Tap <strong>&ldquo;Open Official Reporting Channel&rdquo;</strong> → land on the real government portal with everything ready to file → submit it for real.</p>
+      <p style="margin-bottom:0"><strong>The &ldquo;oh, that's cool&rdquo; beat:</strong> watching the agent go from &ldquo;I don't know who handles this&rdquo; to a correctly-sourced, ready-to-file complaint in seconds &mdash; then seeing that complaint actually filed on the real government site, on camera, in the demo video.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Scope Boundary</h2>
+    <div class="boundary">
+      <details open>
+        <summary><span class="tag now">Now</span> In the proof of concept</summary>
+        <div class="body">
+          <ul>
+            <li><b>Hyderabad only.</b> Three issue categories: potholes/road damage, broken streetlights, water leakage/drainage.</li>
+            <li><b>Photo capture + typed description.</b> Browser geolocation for location. No native app.</li>
+            <li><b>Vision classification</b> of the issue from the photo.</li>
+            <li><b>Grounded authority research</b> — live search backed by pre-verified official sources for the 3 categories; cites what it used.</li>
+            <li><b>One complete, formatted complaint</b> per report: issue, location, description, evidence, category, authority, sources.</li>
+            <li><b>Honest hand-off</b> to the real official reporting channel. No fake submission, no fake status tracking.</li>
+            <li><b>Mobile-first responsive web app (PWA).</b></li>
+          </ul>
+        </div>
+      </details>
+      <details>
+        <summary><span class="tag later">Later</span> Worth doing, not now</summary>
+        <div class="body">
+          <ul>
+            <li>Other cities beyond Hyderabad &mdash; architecture designed to extend, not implemented for v1.</li>
+            <li>Voice input via the browser's built-in speech recognition, once the typed-text core loop works end-to-end.</li>
+            <li>An &ldquo;evidence sufficiency&rdquo; check that flags an incomplete photo/description and asks for more.</li>
+            <li>A personal history/local tracker of problems reported.</li>
+          </ul>
+        </div>
+      </details>
+      <details>
+        <summary><span class="tag cut">Cut</span> Explicitly out</summary>
+        <div class="body">
+          <ul>
+            <li><b>Automated submission via government API.</b> No public API exists; faking a &ldquo;submitted&rdquo; state would violate the hackathon's &ldquo;must function as depicted&rdquo; rule.</li>
+            <li><b>Live tracking of government response/resolution.</b> Same reason &mdash; nothing to back it.</li>
+            <li><b>Citing specific municipal code/legal sections.</b> Real hallucination risk. Replaced with &ldquo;official process + cited source&rdquo; instead.</li>
+            <li><b>Native Android/iOS app.</b> Unneeded &mdash; browser geolocation and camera capture cover it, and a PWA ships far faster solo.</li>
+          </ul>
+        </div>
+      </details>
+    </div>
+  </section>
+
+  <p class="footer-note">Scope document for CivicFix · Build With AI: Basics hackathon · Markdown version (<code>scope.md</code>) is canonical; this page is a visual companion for review.</p>
+
+</div>
+</body>
+</html>

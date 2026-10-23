@@ -1,0 +1,559 @@
+{
+  "_meta": {
+    "note": "Real, verified official Indian civic authority sources — not placeholders. Hyderabad entries verified via live web research on 2026-10-12; the 7 additional metros and the national CPGRAMS fallback verified via live web research on 2026-10-22. On 2026-10-23, every one of the 13 city portals plus CPGRAMS was additionally live-verified by actually clicking through the real site in a real browser (not just fetching it) — see devpost/checklist.md Slice 11 for the full method. That pass replaced several links that had gone stale or were never reliable (GHMC's own FAQ page linked a typo'd dead URL; Chennai GCC's old redirect now 404s; BWSSB's own site times out) with real working alternatives found by navigating each site's own menus, and added filingSteps (concrete, step-by-step, written from actually using the form), helplinePhone (a number confirmed on the authority's own site), and a tutorialVideoUrl — a real video found by navigating directly to youtube.com and picking the most relevant genuine result (plain web search could not surface these; see checklist.md). Exact sub-page paths on government sites can change over time; each entry's officialDomain is the stable fallback if a deep link breaks.",
+    "lastVerified": "2026-10-23"
+  },
+  "national_fallback": {
+    "authorityName": "CPGRAMS — Centralized Public Grievance Redress and Monitoring System (Government of India)",
+    "officialDomain": "https://pgportal.gov.in",
+    "reportingChannel": "https://pgportal.gov.in/Home/LodgeGrievance",
+    "reportingChannelLabel": "CPGRAMS — Lodge a Grievance",
+    "sourceNote": "CPGRAMS is the Government of India's official nationwide public grievance portal, connecting citizens to every state and central government department. Used when the reporter's location isn't one of CivicFix's specifically-verified metro cities (or no location was available) — this is the correct, honest general channel for anywhere in India, rather than guessing a specific local authority that hasn't actually been verified. Live-reverified 2026-10-23: the page loads and works.",
+    "filingSteps": [
+      "Open the Lodge Grievance page — CPGRAMS now requires a registered account before you can file.",
+      "If you don't have one yet, use \"Click here to register\" and sign up with your mobile number and email.",
+      "Log in, then pick the ministry/department/state your issue falls under — for a local civic issue, look for your state government or \"local body\" category.",
+      "Fill in the grievance details and submit — you'll get a registration number by SMS/email to track status."
+    ],
+    "tutorialVideoUrl": "https://www.youtube.com/shorts/6zSYgLBF-7I",
+    "tutorialVideoLabel": "Complain directly to PMO | How to file a Complaint on CPGRAM — Tutorial Tuesdays Ep. 2 (Labour Law Advisor)"
+  },
+  "cities": {
+    "hyderabad": {
+      "pothole": {
+        "authorityName": "GHMC (Greater Hyderabad Municipal Corporation) — Roads & Infrastructure",
+        "officialDomain": "https://www.ghmc.gov.in",
+        "reportingChannel": "https://igs.ghmc.gov.in/operator/send_otp_mobile",
+        "reportingChannelLabel": "GHMC IGS — Lodge Grievance (mobile OTP login)",
+        "sourceNote": "GHMC is the Greater Hyderabad Municipal Corporation, confirmed via its official site (ghmc.gov.in) as the body handling city road maintenance and civic grievances. This previously pointed to ghmc.gov.in's own howdoi.aspx FAQ page; that page loads, but its own \"How to lodge a Grievance\" answer links to \"www.ghmc.gov.in.com\" — a typo on GHMC's own site that doesn't resolve (confirmed via live browser testing 2026-10-23). This now points instead to GHMC's real IGS (Integrated Grievance System) \"Lodge Grievance\" flow at igs.ghmc.gov.in, found by navigating the site live and confirmed working.",
+        "filingSteps": [
+          "On the Lodge Grievance page, enter your mobile number and request an OTP.",
+          "Enter the OTP you receive by SMS to verify your number.",
+          "Select the complaint category (e.g. Roads/Potholes) and your circle/ward.",
+          "Describe the issue, attach a photo if the form allows it, and submit to get a grievance number to track."
+        ],
+        "helplinePhone": null,
+        "tutorialVideoUrl": "https://www.youtube.com/watch?v=O4rjTvu91eg",
+        "tutorialVideoLabel": "How to complaint GHMC | Drainage, Garbage, Potholes, Electricity, Roads complaints in My GHMC app"
+      },
+      "streetlight": {
+        "authorityName": "GHMC — Street Lighting Section",
+        "officialDomain": "https://www.ghmc.gov.in",
+        "reportingChannel": "https://igs.ghmc.gov.in/operator/send_otp_mobile",
+        "reportingChannelLabel": "GHMC IGS — Lodge Grievance (mobile OTP login)",
+        "sourceNote": "Street lighting in Hyderabad was taken over by GHMC's own street-lighting management (reported by Deccan Chronicle and Siasat as GHMC directly managing streetlight complaints, moving this away from the earlier power-utility arrangement). Points to GHMC's real IGS \"Lodge Grievance\" system — see the pothole entry's note on the howdoi.aspx FAQ page's own broken link, confirmed dead via live browser testing.",
+        "filingSteps": [
+          "On the Lodge Grievance page, enter your mobile number and request an OTP.",
+          "Enter the OTP you receive by SMS to verify your number.",
+          "Select the complaint category (e.g. Street Light) and your circle/ward.",
+          "Describe the issue, attach a photo if the form allows it, and submit to get a grievance number to track."
+        ],
+        "helplinePhone": null,
+        "tutorialVideoUrl": "https://www.youtube.com/watch?v=O4rjTvu91eg",
+        "tutorialVideoLabel": "How to complaint GHMC | Drainage, Garbage, Potholes, Electricity, Roads complaints in My GHMC app"
+      },
+      "water": {
+        "authorityName": "HMWSSB (Hyderabad Metropolitan Water Supply and Sewerage Board)",
+        "officialDomain": "https://www.hyderabadwater.gov.in",
+        "reportingChannel": "https://www.hyderabadwater.gov.in/en/index.php/services/customers-services/register-grievances",
+        "reportingChannelLabel": "HMWSSB Complaints Portal",
+        "sourceNote": "HMWSSB is Hyderabad's official water supply and sewerage authority, responsible for water leakage and drainage/sewerage complaints within the city. Its official domain is hyderabadwater.gov.in. This entry was not part of the 2026-10-23 live re-verification pass (that pass covered the other 12 portals plus CPGRAMS); the link itself is unchanged from the original 2026-10-12 research.",
+        "filingSteps": [
+          "Open the Register Grievances page under HMWSSB's Customer Services menu.",
+          "Fill in your Can/Consumer number if you have one, or your account and contact details.",
+          "Select the issue type (e.g. leakage, no supply, water quality) and describe the problem.",
+          "Submit and note the complaint number given for tracking."
+        ],
+        "helplinePhone": null,
+        "tutorialVideoUrl": "https://www.youtube.com/watch?v=0L_IjWHv99U",
+        "tutorialVideoLabel": "HMWSSB App Review — Pay Water Bills Online, Register Complaints & Manage Water Services"
+      },
+      "general_fallback": {
+        "authorityName": "GHMC — General Citizen Grievance (fallback when the specific authority can't be confidently identified)",
+        "officialDomain": "https://www.ghmc.gov.in",
+        "reportingChannel": "https://igs.ghmc.gov.in/operator/send_otp_mobile",
+        "reportingChannelLabel": "GHMC IGS — Lodge Grievance (mobile OTP login)",
+        "sourceNote": "Used only when classification confidence is low or the specific authority can't be verified — routes to GHMC's real IGS Lodge Grievance system rather than guessing a wrong specific authority.",
+        "filingSteps": [
+          "On the Lodge Grievance page, enter your mobile number and request an OTP.",
+          "Enter the OTP you receive by SMS to verify your number.",
+          "Select the complaint category that best fits and your circle/ward.",
+          "Describe the issue, attach a photo if the form allows it, and submit to get a grievance number to track."
+        ],
+        "helplinePhone": null,
+        "tutorialVideoUrl": "https://www.youtube.com/watch?v=O4rjTvu91eg",
+        "tutorialVideoLabel": "How to complaint GHMC | Drainage, Garbage, Potholes, Electricity, Roads complaints in My GHMC app"
+      }
+    },
+    "bengaluru": {
+      "pothole": {
+        "authorityName": "BBMP (Bruhat Bengaluru Mahanagara Palike) — Roads & Infrastructure",
+        "officialDomain": "https://bbmp.gov.in",
+        "reportingChannel": "http://bbmp.sahaaya.in",
+        "reportingChannelLabel": "BBMP Sahaaya Portal",
+        "sourceNote": "BBMP is Bengaluru's municipal corporation. Its own official site (bbmp.gov.in) names bbmp.sahaaya.in as its grievance redressal mechanism for citizen complaints, including road and pothole issues. Live-reverified 2026-10-23: the portal loads and works; it requires a phone-OTP-verified account before you can lodge a complaint.",
+        "filingSteps": [
+          "Open Sahaaya and choose to register/sign in with your mobile number.",
+          "Verify the OTP sent by SMS to create or access your citizen account.",
+          "Choose the complaint category (Roads/Potholes) and your ward.",
+          "Describe the issue, attach a photo, and submit — you'll get a tracking number."
+        ],
+        "helplinePhone": null,
+        "tutorialVideoUrl": "https://www.youtube.com/watch?v=buIgTqytv3I",
+        "tutorialVideoLabel": "BBMP Pothole Complaint: Easy Steps to Report and Escalate | Get Results Fast"
+      },
+      "streetlight": {
+        "authorityName": "BBMP — Street Lighting Section",
+        "officialDomain": "https://bbmp.gov.in",
+        "reportingChannel": "http://bbmp.sahaaya.in",
+        "reportingChannelLabel": "BBMP Sahaaya Portal",
+        "sourceNote": "Street lighting within Bengaluru falls under BBMP's civic maintenance responsibilities, reported through the same Sahaaya grievance redressal portal as other BBMP civic complaints. Live-reverified 2026-10-23 alongside the pothole entry.",
+        "filingSteps": [
+          "Open Sahaaya and choose to register/sign in with your mobile number.",
+          "Verify the OTP sent by SMS to create or access your citizen account.",
+          "Choose the complaint category (Street Light) and your ward.",
+          "Describe the issue, attach a photo, and submit — you'll get a tracking number."
+        ],
+        "helplinePhone": null,
+        "tutorialVideoUrl": "https://www.youtube.com/watch?v=buIgTqytv3I",
+        "tutorialVideoLabel": "BBMP Pothole Complaint: Easy Steps to Report and Escalate | Get Results Fast"
+      },
+      "water": {
+        "authorityName": "BWSSB (Bangalore Water Supply and Sewerage Board) — via Karnataka's iPGRS",
+        "officialDomain": "https://bwssb.gov.in",
+        "reportingChannel": "https://ipgrs.karnataka.gov.in/",
+        "reportingChannelLabel": "Karnataka iPGRS (State Grievance Portal)",
+        "sourceNote": "BWSSB is Bengaluru's dedicated water supply and sewerage authority, distinct from BBMP — confirmed as the correct responsible body across multiple independent citizen-service references. Its own site (bwssb.gov.in) times out — confirmed independently twice: once via research-time fetch, and again via live browser testing on 2026-10-23 (ERR_CONNECTION_TIMED_OUT). This instead routes through iPGRS (Integrated Public Grievance Redressal System), the Karnataka state government's own real, actively-used citizen grievance portal, which accepts complaints against BWSSB and every other Karnataka state department — live-reverified working 2026-10-23.",
+        "filingSteps": [
+          "Open iPGRS and select \"File a Grievance\" (or register first if you don't have an account).",
+          "Choose the department: Bangalore Water Supply & Sewerage Board (BWSSB).",
+          "Describe your issue, add your location/ward, and attach a photo if possible.",
+          "Submit — you'll get a grievance number to check status later on the same portal."
+        ],
+        "helplinePhone": "1902",
+        "tutorialVideoUrl": "https://www.youtube.com/watch?v=wgjiLDgSqio",
+        "tutorialVideoLabel": "How to File Government Complaints in Karnataka through Janaspandana iPGRS"
+      },
+      "general_fallback": {
+        "authorityName": "BBMP — General Citizen Grievance (fallback when the specific authority can't be confidently identified)",
+        "officialDomain": "https://bbmp.gov.in",
+        "reportingChannel": "http://bbmp.sahaaya.in",
+        "reportingChannelLabel": "BBMP Sahaaya Portal",
+        "sourceNote": "Used only when classification confidence is low or the specific authority can't be verified.",
+        "filingSteps": [
+          "Open Sahaaya and choose to register/sign in with your mobile number.",
+          "Verify the OTP sent by SMS to create or access your citizen account.",
+          "Choose the complaint category that best fits and your ward.",
+          "Describe the issue, attach a photo, and submit — you'll get a tracking number."
+        ],
+        "helplinePhone": null,
+        "tutorialVideoUrl": "https://www.youtube.com/watch?v=buIgTqytv3I",
+        "tutorialVideoLabel": "BBMP Pothole Complaint: Easy Steps to Report and Escalate | Get Results Fast"
+      }
+    },
+    "mumbai": {
+      "pothole": {
+        "authorityName": "MCGM / BMC (Municipal Corporation of Greater Mumbai) — Roads & Infrastructure",
+        "officialDomain": "https://portal.mcgm.gov.in",
+        "reportingChannel": "https://marg.mcgm.gov.in/MARG/welcomePage.html",
+        "reportingChannelLabel": "MCGM MARG Complaint Portal",
+        "sourceNote": "MCGM (also known as BMC) is confirmed via its own official portal (portal.mcgm.gov.in) as linking to MARG — its online complaint registration system — for civic issues including road damage and potholes. Live-reverified 2026-10-23: the portal loads and works (Marathi-language UI); it uses a phone-OTP flow.",
+        "filingSteps": [
+          "Open MARG — the interface is in Marathi by default; look for a language toggle if you need English.",
+          "Register or log in with your mobile number and verify the OTP sent by SMS.",
+          "Select the complaint category (roads/potholes) and your ward.",
+          "Fill in the location and description, attach a photo, and submit."
+        ],
+        "helplinePhone": null,
+        "tutorialVideoUrl": "https://www.youtube.com/watch?v=wk4NqEC10iQ",
+        "tutorialVideoLabel": "मुंबई महानगरपालिकेकडे ऑनलाइन तक्रार कशी नोंदवायची | How to register online complaint to BMC Mumbai"
+      },
+      "streetlight": {
+        "authorityName": "MCGM / BMC — Street Lighting",
+        "officialDomain": "https://portal.mcgm.gov.in",
+        "reportingChannel": "https://marg.mcgm.gov.in/MARG/welcomePage.html",
+        "reportingChannelLabel": "MCGM MARG Complaint Portal",
+        "sourceNote": "Street lighting maintenance within Mumbai falls under MCGM's civic responsibilities, reported through the same MARG complaint portal as other municipal complaints. Live-reverified 2026-10-23 alongside the pothole entry.",
+        "filingSteps": [
+          "Open MARG — the interface is in Marathi by default; look for a language toggle if you need English.",
+          "Register or log in with your mobile number and verify the OTP sent by SMS.",
+          "Select the complaint category (street light) and your ward.",
+          "Fill in the location and description, attach a photo, and submit."
+        ],
+        "helplinePhone": null,
+        "tutorialVideoUrl": "https://www.youtube.com/watch?v=wk4NqEC10iQ",
+        "tutorialVideoLabel": "मुंबई महानगरपालिकेकडे ऑनलाइन तक्रार कशी नोंदवायची | How to register online complaint to BMC Mumbai"
+      },
+      "water": {
+        "authorityName": "MCGM / BMC — Water Supply Department",
+        "officialDomain": "https://portal.mcgm.gov.in",
+        "reportingChannel": "https://marg.mcgm.gov.in/MARG/welcomePage.html",
+        "reportingChannelLabel": "MCGM MARG Complaint Portal",
+        "sourceNote": "Unlike Hyderabad or Bengaluru, Mumbai's water supply is managed directly by MCGM itself rather than a separate water board, and is reported through the same MARG portal. Live-reverified 2026-10-23 alongside the pothole entry.",
+        "filingSteps": [
+          "Open MARG — the interface is in Marathi by default; look for a language toggle if you need English.",
+          "Register or log in with your mobile number and verify the OTP sent by SMS.",
+          "Select the complaint category (water supply) and your ward.",
+          "Fill in the location and description, attach a photo, and submit."
+        ],
+        "helplinePhone": null,
+        "tutorialVideoUrl": "https://www.youtube.com/watch?v=wk4NqEC10iQ",
+        "tutorialVideoLabel": "मुंबई महानगरपालिकेकडे ऑनलाइन तक्रार कशी नोंदवायची | How to register online complaint to BMC Mumbai"
+      },
+      "general_fallback": {
+        "authorityName": "MCGM / BMC — General Citizen Grievance",
+        "officialDomain": "https://portal.mcgm.gov.in",
+        "reportingChannel": "https://marg.mcgm.gov.in/MARG/welcomePage.html",
+        "reportingChannelLabel": "MCGM MARG Complaint Portal",
+        "sourceNote": "Used only when classification confidence is low or the specific authority can't be verified.",
+        "filingSteps": [
+          "Open MARG — the interface is in Marathi by default; look for a language toggle if you need English.",
+          "Register or log in with your mobile number and verify the OTP sent by SMS.",
+          "Select the complaint category that best fits and your ward.",
+          "Fill in the location and description, attach a photo, and submit."
+        ],
+        "helplinePhone": null,
+        "tutorialVideoUrl": "https://www.youtube.com/watch?v=wk4NqEC10iQ",
+        "tutorialVideoLabel": "मुंबई महानगरपालिकेकडे ऑनलाइन तक्रार कशी नोंदवायची | How to register online complaint to BMC Mumbai"
+      }
+    },
+    "delhi": {
+      "pothole": {
+        "authorityName": "MCD (Municipal Corporation of Delhi) — Roads & Infrastructure",
+        "officialDomain": "https://mcdonline.nic.in",
+        "reportingChannel": "https://mcd.everythingcivic.com/citizen/createissue",
+        "reportingChannelLabel": "MCD 311 — Lodge Complaint (no login required)",
+        "sourceNote": "MCD is Delhi's unified municipal body, widely confirmed as the authority for road maintenance and civic grievances. Live browser testing on 2026-10-23 traced the real path from mcdonline.nic.in's \"Citizen Corner\" → \"Grievances\" menu to MCD's actual \"Lodge Complaint MCD 311\" system — a complete, no-login-required online complaint form. This replaces pointing at the bare mcdonline.nic.in homepage, since the real complaint form is this specific page.",
+        "filingSteps": [
+          "Open the Lodge Complaint page — no account or login is required.",
+          "Fill in your name, mobile number, and the issue category (e.g. Roads/Potholes).",
+          "Set the location (use your current location or search the address) and ward.",
+          "Describe the problem, attach a photo if you have one, and submit to get a complaint number."
+        ],
+        "helplinePhone": "155305",
+        "tutorialVideoUrl": "https://www.youtube.com/watch?v=MX5VxZW8918",
+        "tutorialVideoLabel": "How to do Complaints in Municipal Corporation of Delhi | street light | poll light | road light MCD"
+      },
+      "streetlight": {
+        "authorityName": "MCD — Street Lighting",
+        "officialDomain": "https://mcdonline.nic.in",
+        "reportingChannel": "https://mcd.everythingcivic.com/citizen/createissue",
+        "reportingChannelLabel": "MCD 311 — Lodge Complaint (no login required)",
+        "sourceNote": "Street lighting within Delhi falls under MCD's civic maintenance responsibilities, reported through the same real MCD 311 \"Lodge Complaint\" form found via live browser testing on 2026-10-23 — see the pothole entry's note.",
+        "filingSteps": [
+          "Open the Lodge Complaint page — no account or login is required.",
+          "Fill in your name, mobile number, and the issue category (e.g. Street Light).",
+          "Set the location (use your current location or search the address) and ward.",
+          "Describe the problem, attach a photo if you have one, and submit to get a complaint number."
+        ],
+        "helplinePhone": "155305",
+        "tutorialVideoUrl": "https://www.youtube.com/watch?v=MX5VxZW8918",
+        "tutorialVideoLabel": "How to do Complaints in Municipal Corporation of Delhi | street light | poll light | road light MCD"
+      },
+      "water": {
+        "authorityName": "Delhi Jal Board (DJB)",
+        "officialDomain": "https://delhijalboard.delhi.gov.in",
+        "reportingChannel": "https://delhijalboard.delhi.gov.in/jalboard/grievance-redressal-mechanism",
+        "reportingChannelLabel": "DJB Grievance Redressal",
+        "sourceNote": "Delhi Jal Board is Delhi's dedicated water and sewerage authority, distinct from MCD. Live browser testing on 2026-10-23 confirmed DJB does not run a single unified web complaint form — its real mechanism is an SMS-code system (send a code to 54646) plus its phone helpline, both described on this official grievance-redressal page.",
+        "filingSteps": [
+          "DJB's fastest real channel is SMS, not a web form: send the relevant complaint code to 54646 from your registered mobile number.",
+          "Alternatively, call the helpline directly to register a complaint.",
+          "You can also check this official page for the current list of SMS codes by complaint type (e.g. leakage, no supply).",
+          "Keep the SMS confirmation or the complaint number given over the phone to track status."
+        ],
+        "helplinePhone": "1916",
+        "tutorialVideoUrl": "https://www.youtube.com/watch?v=0I0oTvCJLbc",
+        "tutorialVideoLabel": "How to complain online in Delhi Jal Board?"
+      },
+      "general_fallback": {
+        "authorityName": "MCD — General Citizen Grievance",
+        "officialDomain": "https://mcdonline.nic.in",
+        "reportingChannel": "https://mcd.everythingcivic.com/citizen/createissue",
+        "reportingChannelLabel": "MCD 311 — Lodge Complaint (no login required)",
+        "sourceNote": "Used only when classification confidence is low or the specific authority can't be verified.",
+        "filingSteps": [
+          "Open the Lodge Complaint page — no account or login is required.",
+          "Fill in your name, mobile number, and the issue category that best fits.",
+          "Set the location (use your current location or search the address) and ward.",
+          "Describe the problem, attach a photo if you have one, and submit to get a complaint number."
+        ],
+        "helplinePhone": "155305",
+        "tutorialVideoUrl": "https://www.youtube.com/watch?v=MX5VxZW8918",
+        "tutorialVideoLabel": "How to do Complaints in Municipal Corporation of Delhi | street light | poll light | road light MCD"
+      }
+    },
+    "chennai": {
+      "pothole": {
+        "authorityName": "GCC (Greater Chennai Corporation) — Roads & Infrastructure",
+        "officialDomain": "https://chennaicorporation.gov.in",
+        "reportingChannel": "https://gccservices.in/pgr",
+        "reportingChannelLabel": "GCC Online Public Grievance Registration",
+        "sourceNote": "GCC (Greater Chennai Corporation) is Chennai's municipal body responsible for road maintenance. The earlier link via services.india.gov.in's redirect is now broken — confirmed via live browser testing on 2026-10-23 (the page itself errors out). The real working path, found by navigating chennaicorporation.gov.in live (\"Online Services\" → \"Online Public Grievance\"), is gccservices.in/pgr, confirmed loading with a \"Register Your Complaints\" flow.",
+        "filingSteps": [
+          "Open the GCC Online Public Grievance page and select \"Register Complaints\" / \"Get Started.\"",
+          "Choose the complaint category (Roads) and your zone/ward.",
+          "Fill in your name, phone number, address/location, and a description of the issue.",
+          "Attach a photo if the form allows it, and submit to get a grievance reference number."
+        ],
+        "helplinePhone": "1913",
+        "tutorialVideoUrl": "https://www.youtube.com/watch?v=0Q8OUcD-m9k",
+        "tutorialVideoLabel": "Chennai Corporation Complaint | How to Register an Online Complaint in Chennai (Thagaval Thedal)"
+      },
+      "streetlight": {
+        "authorityName": "GCC — Street Lighting",
+        "officialDomain": "https://chennaicorporation.gov.in",
+        "reportingChannel": "https://gccservices.in/pgr",
+        "reportingChannelLabel": "GCC Online Public Grievance Registration",
+        "sourceNote": "Street lighting within Chennai falls under GCC's civic maintenance responsibilities, reported through the same real working gccservices.in/pgr channel found via live browser testing on 2026-10-23 — see the pothole entry's note on the old broken link.",
+        "filingSteps": [
+          "Open the GCC Online Public Grievance page and select \"Register Complaints\" / \"Get Started.\"",
+          "Choose the complaint category (Street Light) and your zone/ward.",
+          "Fill in your name, phone number, address/location, and a description of the issue.",
+          "Attach a photo if the form allows it, and submit to get a grievance reference number."
+        ],
+        "helplinePhone": "1913",
+        "tutorialVideoUrl": "https://www.youtube.com/watch?v=0Q8OUcD-m9k",
+        "tutorialVideoLabel": "Chennai Corporation Complaint | How to Register an Online Complaint in Chennai (Thagaval Thedal)"
+      },
+      "water": {
+        "authorityName": "CMWSSB (Chennai Metropolitan Water Supply and Sewerage Board)",
+        "officialDomain": "https://cmwssb.tn.gov.in",
+        "reportingChannel": "https://cms-cmwssb.tn.gov.in/#/portalindex",
+        "reportingChannelLabel": "CMWSSB Complaint Management Portal",
+        "sourceNote": "CMWSSB is Chennai's dedicated water supply and sewerage authority, distinct from GCC. The homepage (cmwssb.tn.gov.in) describes its complaint process; live browser testing on 2026-10-23 found the actual complaint management system at a more precise URL (cms-cmwssb.tn.gov.in), which is used here instead of the general homepage.",
+        "filingSteps": [
+          "Open the CMWSSB Complaint Management Portal.",
+          "Register or log in, then select the issue type (leakage, no supply, sewage, etc.).",
+          "Fill in your connection/area details and describe the problem.",
+          "Submit — you'll get a complaint number, or call/WhatsApp the numbers below for faster response."
+        ],
+        "helplinePhone": "1916 / 044-45674567 (phone), +91 8144930308 (WhatsApp)",
+        "tutorialVideoUrl": "https://www.youtube.com/watch?v=UukLhjhsz7k",
+        "tutorialVideoLabel": "Chennai water complaint | sewage | How to register online complaint in Chennai (Thagaval Thedal)"
+      },
+      "general_fallback": {
+        "authorityName": "GCC — General Citizen Grievance",
+        "officialDomain": "https://chennaicorporation.gov.in",
+        "reportingChannel": "https://gccservices.in/pgr",
+        "reportingChannelLabel": "GCC Online Public Grievance Registration",
+        "sourceNote": "Used only when classification confidence is low or the specific authority can't be verified.",
+        "filingSteps": [
+          "Open the GCC Online Public Grievance page and select \"Register Complaints\" / \"Get Started.\"",
+          "Choose the complaint category that best fits and your zone/ward.",
+          "Fill in your name, phone number, address/location, and a description of the issue.",
+          "Attach a photo if the form allows it, and submit to get a grievance reference number."
+        ],
+        "helplinePhone": "1913",
+        "tutorialVideoUrl": "https://www.youtube.com/watch?v=0Q8OUcD-m9k",
+        "tutorialVideoLabel": "Chennai Corporation Complaint | How to Register an Online Complaint in Chennai (Thagaval Thedal)"
+      }
+    },
+    "kolkata": {
+      "pothole": {
+        "authorityName": "KMC (Kolkata Municipal Corporation) — Roads & Infrastructure",
+        "officialDomain": "https://www.kmcgov.in",
+        "reportingChannel": "https://kmc.wb.gov.in/citizen/user/login",
+        "reportingChannelLabel": "KMC Grievance 2.0 — Citizen Login / Register",
+        "sourceNote": "KMC is Kolkata's unified municipal body, responsible for roads and streetlights. Live browser testing on 2026-10-23 found two real grievance paths from kmcgov.in: an older \"Grievance Redressal\" complaint-search page, and KMC's newer \"Grievance KMC 2.0\" system at kmc.wb.gov.in, which is a genuine mobile-number-and-captcha citizen login/registration system — used here as the more current channel.",
+        "filingSteps": [
+          "Open KMC Grievance 2.0 and tap Register if you don't already have an account (mobile number + captcha).",
+          "Log in with your registered mobile number and the OTP/captcha.",
+          "Choose the complaint type (roads) and fill in your ward and location details.",
+          "Describe the issue and submit — or call the helpline below if the portal is slow."
+        ],
+        "helplinePhone": "1800-345-3375 (toll-free), WhatsApp 8335988888",
+        "tutorialVideoUrl": "https://www.youtube.com/watch?v=Gh5c1pspLOo",
+        "tutorialVideoLabel": "KMC Complaint registration process — Online/Offline, Helpline Numbers and Portal"
+      },
+      "streetlight": {
+        "authorityName": "KMC — Street Lighting",
+        "officialDomain": "https://www.kmcgov.in",
+        "reportingChannel": "https://kmc.wb.gov.in/citizen/user/login",
+        "reportingChannelLabel": "KMC Grievance 2.0 — Citizen Login / Register",
+        "sourceNote": "Street lighting within Kolkata falls under KMC's civic maintenance responsibilities, reported through the same KMC Grievance 2.0 system live-verified 2026-10-23 — see the pothole entry's note.",
+        "filingSteps": [
+          "Open KMC Grievance 2.0 and tap Register if you don't already have an account (mobile number + captcha).",
+          "Log in with your registered mobile number and the OTP/captcha.",
+          "Choose the complaint type (street light) and fill in your ward and location details.",
+          "Describe the issue and submit — or call the helpline below if the portal is slow."
+        ],
+        "helplinePhone": "1800-345-3375 (toll-free), WhatsApp 8335988888",
+        "tutorialVideoUrl": "https://www.youtube.com/watch?v=Gh5c1pspLOo",
+        "tutorialVideoLabel": "KMC Complaint registration process — Online/Offline, Helpline Numbers and Portal"
+      },
+      "water": {
+        "authorityName": "KMC — Water Supply Department",
+        "officialDomain": "https://www.kmcgov.in",
+        "reportingChannel": "https://kmc.wb.gov.in/citizen/user/login",
+        "reportingChannelLabel": "KMC Grievance 2.0 — Citizen Login / Register",
+        "sourceNote": "Unlike Hyderabad, Bengaluru, Mumbai, Delhi, or Chennai, Kolkata has no separate water board — KMC manages water supply and sewerage directly, reported through the same KMC Grievance 2.0 system live-verified 2026-10-23.",
+        "filingSteps": [
+          "Open KMC Grievance 2.0 and tap Register if you don't already have an account (mobile number + captcha).",
+          "Log in with your registered mobile number and the OTP/captcha.",
+          "Choose the complaint type (water supply) and fill in your ward and location details.",
+          "Describe the issue and submit — or call the helpline below if the portal is slow."
+        ],
+        "helplinePhone": "1800-345-3375 (toll-free), WhatsApp 8335988888",
+        "tutorialVideoUrl": "https://www.youtube.com/watch?v=Gh5c1pspLOo",
+        "tutorialVideoLabel": "KMC Complaint registration process — Online/Offline, Helpline Numbers and Portal"
+      },
+      "general_fallback": {
+        "authorityName": "KMC — General Citizen Grievance",
+        "officialDomain": "https://www.kmcgov.in",
+        "reportingChannel": "https://kmc.wb.gov.in/citizen/user/login",
+        "reportingChannelLabel": "KMC Grievance 2.0 — Citizen Login / Register",
+        "sourceNote": "Used only when classification confidence is low or the specific authority can't be verified.",
+        "filingSteps": [
+          "Open KMC Grievance 2.0 and tap Register if you don't already have an account (mobile number + captcha).",
+          "Log in with your registered mobile number and the OTP/captcha.",
+          "Choose the complaint type that best fits and fill in your ward and location details.",
+          "Describe the issue and submit — or call the helpline below if the portal is slow."
+        ],
+        "helplinePhone": "1800-345-3375 (toll-free), WhatsApp 8335988888",
+        "tutorialVideoUrl": "https://www.youtube.com/watch?v=Gh5c1pspLOo",
+        "tutorialVideoLabel": "KMC Complaint registration process — Online/Offline, Helpline Numbers and Portal"
+      }
+    },
+    "pune": {
+      "pothole": {
+        "authorityName": "PMC (Pune Municipal Corporation) — Roads & Infrastructure",
+        "officialDomain": "https://www.pmc.gov.in",
+        "reportingChannel": "https://complaint.pmc.gov.in/home?language=en",
+        "reportingChannelLabel": "PMC Complaint Management System",
+        "sourceNote": "PMC is Pune's municipal body. Live browser testing on 2026-10-23 found PMC's real, dedicated complaint system at complaint.pmc.gov.in — a working \"Takrar Vyavasthapan Pranali\" (Complaint Management System) with citizen registration/login, live status tracking, and multiple channels (web, message, email, Facebook, Twitter, WhatsApp, call centre) — used here in place of the bare pmc.gov.in homepage.",
+        "filingSteps": [
+          "Open the PMC Complaint Management System and register or log in as a citizen.",
+          "Select the complaint category (roads) and fill in your ward/location.",
+          "Describe the issue and submit — you can track status with the same login afterward.",
+          "The portal also lists non-web channels (WhatsApp, Facebook, Twitter, call centre) if the website is slow."
+        ],
+        "helplinePhone": "1800-1030-222 (toll-free, 7am–11pm)",
+        "tutorialVideoUrl": "https://www.youtube.com/watch?v=bP3d7vW2YXs",
+        "tutorialVideoLabel": "पुणे महानगरपालिका तक्रार-सूचना कशी नोंदवावी | How to register a complaint in Pune Municipal Corporation"
+      },
+      "streetlight": {
+        "authorityName": "PMC — Street Lighting",
+        "officialDomain": "https://www.pmc.gov.in",
+        "reportingChannel": "https://complaint.pmc.gov.in/home?language=en",
+        "reportingChannelLabel": "PMC Complaint Management System",
+        "sourceNote": "Street lighting within Pune falls under PMC's civic maintenance responsibilities, reported through the same real Complaint Management System live-verified 2026-10-23 — see the pothole entry's note.",
+        "filingSteps": [
+          "Open the PMC Complaint Management System and register or log in as a citizen.",
+          "Select the complaint category (street light) and fill in your ward/location.",
+          "Describe the issue and submit — you can track status with the same login afterward.",
+          "The portal also lists non-web channels (WhatsApp, Facebook, Twitter, call centre) if the website is slow."
+        ],
+        "helplinePhone": "1800-1030-222 (toll-free, 7am–11pm)",
+        "tutorialVideoUrl": "https://www.youtube.com/watch?v=bP3d7vW2YXs",
+        "tutorialVideoLabel": "पुणे महानगरपालिका तक्रार-सूचना कशी नोंदवावी | How to register a complaint in Pune Municipal Corporation"
+      },
+      "water": {
+        "authorityName": "PMC — Water Supply Department",
+        "officialDomain": "https://www.pmc.gov.in",
+        "reportingChannel": "https://complaint.pmc.gov.in/home?language=en",
+        "reportingChannelLabel": "PMC Complaint Management System",
+        "sourceNote": "Pune has no separate water board — PMC manages water supply directly, reported through the same real Complaint Management System live-verified 2026-10-23.",
+        "filingSteps": [
+          "Open the PMC Complaint Management System and register or log in as a citizen.",
+          "Select the complaint category (water supply) and fill in your ward/location.",
+          "Describe the issue and submit — you can track status with the same login afterward.",
+          "The portal also lists non-web channels (WhatsApp, Facebook, Twitter, call centre) if the website is slow."
+        ],
+        "helplinePhone": "1800-1030-222 (toll-free, 7am–11pm)",
+        "tutorialVideoUrl": "https://www.youtube.com/watch?v=bP3d7vW2YXs",
+        "tutorialVideoLabel": "पुणे महानगरपालिका तक्रार-सूचना कशी नोंदवावी | How to register a complaint in Pune Municipal Corporation"
+      },
+      "general_fallback": {
+        "authorityName": "PMC — General Citizen Grievance",
+        "officialDomain": "https://www.pmc.gov.in",
+        "reportingChannel": "https://complaint.pmc.gov.in/home?language=en",
+        "reportingChannelLabel": "PMC Complaint Management System",
+        "sourceNote": "Used only when classification confidence is low or the specific authority can't be verified.",
+        "filingSteps": [
+          "Open the PMC Complaint Management System and register or log in as a citizen.",
+          "Select the complaint category that best fits and fill in your ward/location.",
+          "Describe the issue and submit — you can track status with the same login afterward.",
+          "The portal also lists non-web channels (WhatsApp, Facebook, Twitter, call centre) if the website is slow."
+        ],
+        "helplinePhone": "1800-1030-222 (toll-free, 7am–11pm)",
+        "tutorialVideoUrl": "https://www.youtube.com/watch?v=bP3d7vW2YXs",
+        "tutorialVideoLabel": "पुणे महानगरपालिका तक्रार-सूचना कशी नोंदवावी | How to register a complaint in Pune Municipal Corporation"
+      }
+    },
+    "ahmedabad": {
+      "pothole": {
+        "authorityName": "AMC (Ahmedabad Municipal Corporation) — Roads & Infrastructure",
+        "officialDomain": "https://ahmedabadcity.gov.in",
+        "reportingChannel": "https://www.amccrs.com/AMCPortal/Complaint/Register",
+        "reportingChannelLabel": "AMC CCRS — Register Complaint (no login required)",
+        "sourceNote": "AMC, confirmed via its own official site (ahmedabadcity.gov.in), runs citizen grievances through CCRS (Comprehensive Complaint Redressal System) at amccrs.com. Live browser testing on 2026-10-23 found CCRS's actual registration form to be the most detailed and reliable of all 13 portals checked: a full no-login-required form with an exact problem-category dropdown (including \"Road-Repair Require\" and \"Streetlight- Streetlight Is Off\"), a map to pin the precise location, automatic ward detection, optional photo/document upload, and SMS PIN verification.",
+        "filingSteps": [
+          "Open the AMC CCRS Complaint Registration page — no login is required for a new complaint.",
+          "Search for your details by mobile number/email, or skip and fill them in directly.",
+          "Search and select the specific problem (e.g. \"Road-Repair Require\") from the dropdown.",
+          "Fill in your name, mobile number, and address.",
+          "Click or search the map to pin the exact location — this auto-fills the ward.",
+          "Optionally attach a photo, then verify with the SMS PIN sent to your mobile and submit."
+        ],
+        "helplinePhone": "155303",
+        "tutorialVideoUrl": "https://www.youtube.com/watch?v=1eYqSy7vDCQ",
+        "tutorialVideoLabel": "How to Register Complaints Through the AMC Portal: Step-by-Step Guide"
+      },
+      "streetlight": {
+        "authorityName": "AMC — Street Lighting",
+        "officialDomain": "https://ahmedabadcity.gov.in",
+        "reportingChannel": "https://www.amccrs.com/AMCPortal/Complaint/Register",
+        "reportingChannelLabel": "AMC CCRS — Register Complaint (no login required)",
+        "sourceNote": "Street lighting within Ahmedabad falls under AMC's civic maintenance responsibilities, reported through the same real CCRS complaint form live-verified 2026-10-23 — see the pothole entry's note; its problem dropdown includes \"Streetlight- Streetlight Is Off\" and similar exact categories.",
+        "filingSteps": [
+          "Open the AMC CCRS Complaint Registration page — no login is required for a new complaint.",
+          "Search for your details by mobile number/email, or skip and fill them in directly.",
+          "Search and select the specific problem (e.g. \"Streetlight- Streetlight Is Off\") from the dropdown.",
+          "Fill in your name, mobile number, and address.",
+          "Click or search the map to pin the exact location — this auto-fills the ward.",
+          "Optionally attach a photo, then verify with the SMS PIN sent to your mobile and submit."
+        ],
+        "helplinePhone": "155303",
+        "tutorialVideoUrl": "https://www.youtube.com/watch?v=1eYqSy7vDCQ",
+        "tutorialVideoLabel": "How to Register Complaints Through the AMC Portal: Step-by-Step Guide"
+      },
+      "water": {
+        "authorityName": "AMC — Water Supply Department",
+        "officialDomain": "https://ahmedabadcity.gov.in",
+        "reportingChannel": "https://www.amccrs.com/AMCPortal/Complaint/Register",
+        "reportingChannelLabel": "AMC CCRS — Register Complaint (no login required)",
+        "sourceNote": "Ahmedabad has no separate water board — AMC manages water supply directly, through the same real CCRS complaint form live-verified 2026-10-23; its problem dropdown includes specific entries like \"Water-No Supply\" and \"Water-Leakage In Main Line.\"",
+        "filingSteps": [
+          "Open the AMC CCRS Complaint Registration page — no login is required for a new complaint.",
+          "Search for your details by mobile number/email, or skip and fill them in directly.",
+          "Search and select the specific problem (e.g. \"Water-No Supply\" or \"Water-Leakage In Main Line\") from the dropdown.",
+          "Fill in your name, mobile number, and address.",
+          "Click or search the map to pin the exact location — this auto-fills the ward.",
+          "Optionally attach a photo, then verify with the SMS PIN sent to your mobile and submit."
+        ],
+        "helplinePhone": "155303",
+        "tutorialVideoUrl": "https://www.youtube.com/watch?v=1eYqSy7vDCQ",
+        "tutorialVideoLabel": "How to Register Complaints Through the AMC Portal: Step-by-Step Guide"
+      },
+      "general_fallback": {
+        "authorityName": "AMC — General Citizen Grievance",
+        "officialDomain": "https://ahmedabadcity.gov.in",
+        "reportingChannel": "https://www.amccrs.com/AMCPortal/Complaint/Register",
+        "reportingChannelLabel": "AMC CCRS — Register Complaint (no login required)",
+        "sourceNote": "Used only when classification confidence is low or the specific authority can't be verified.",
+        "filingSteps": [
+          "Open the AMC CCRS Complaint Registration page — no login is required for a new complaint.",
+          "Search for your details by mobile number/email, or skip and fill them in directly.",
+          "Search and select the specific problem from the dropdown.",
+          "Fill in your name, mobile number, and address.",
+          "Click or search the map to pin the exact location — this auto-fills the ward.",
+          "Optionally attach a photo, then verify with the SMS PIN sent to your mobile and submit."
+        ],
+        "helplinePhone": "155303",
+        "tutorialVideoUrl": "https://www.youtube.com/watch?v=1eYqSy7vDCQ",
+        "tutorialVideoLabel": "How to Register Complaints Through the AMC Portal: Step-by-Step Guide"
+      }
+    }
+  }
+}

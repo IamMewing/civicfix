@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CivicFix — Code Tour &amp; App Map</title>
+<style>
+  :root {
+    --ink: #16130f; --paper: #fff8ec; --line: #e9ded0;
+    --amber: #f2a900; --amber-deep: #c98700;
+    --verified: #1e8a4c; --verified-soft: #e3f3e8;
+    --signal: #2554e8; --signal-soft: #e8edfd;
+    --rust: #c1440e; --rust-soft: #fbe8de;
+    --gold: #d98a00; --gold-soft: #fdf0dc;
+    --slate: #4a4336;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ink: #faf1df; --paper: #171209; --line: #3a3225;
+      --verified-soft: #112b1c; --signal-soft: #10183a;
+      --rust-soft: #3a1708; --gold-soft: #3a2503; --slate: #cdc2ab;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--paper); color: var(--ink);
+    font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  }
+  .wrap { max-width: 880px; margin: 0 auto; padding: 48px 20px 80px; }
+  h1 { font-size: clamp(28px, 5vw, 40px); font-weight: 900; letter-spacing: -0.02em; margin: 0 0 6px; }
+  .sub { color: var(--slate); font-size: 15px; margin: 0 0 40px; }
+  h2 { font-size: 22px; font-weight: 900; letter-spacing: -0.01em; margin: 56px 0 6px; }
+  h2 .num { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; border-radius: 999px; background: var(--amber); color: var(--ink); font-size: 14px; margin-right: 10px; vertical-align: middle; }
+  .lede { color: var(--slate); margin: 0 0 20px; font-size: 15px; }
+  code { background: var(--line); padding: 1px 6px; border-radius: 5px; font-size: 0.88em; }
+  .flow { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin: 20px 0; }
+  .flow .step { background: var(--signal-soft); color: var(--signal); border: 2px solid color-mix(in srgb, var(--signal) 25%, transparent); border-radius: 14px; padding: 10px 14px; font-weight: 700; font-size: 13px; }
+  .flow .arrow { color: var(--slate); font-size: 18px; }
+  .card { border: 2px solid var(--line); border-radius: 16px; padding: 18px 20px; margin: 14px 0; }
+  .card .file { font-weight: 800; font-size: 15px; margin: 0 0 6px; }
+  .card .file a { color: inherit; text-decoration: none; }
+  .card p { margin: 6px 0; font-size: 14.5px; color: var(--ink); }
+  .card p.why { color: var(--slate); }
+  .tag { display: inline-block; font-size: 11px; font-weight: 800; text-transform: uppercase; letter-spacing: 0.04em; padding: 2px 8px; border-radius: 999px; margin-right: 6px; }
+  .tag.ui { background: var(--signal-soft); color: var(--signal); }
+  .tag.api { background: var(--rust-soft); color: var(--rust); }
+  .tag.data { background: var(--gold-soft); color: var(--gold); }
+  .practice { background: var(--verified-soft); border: 2px solid color-mix(in srgb, var(--verified) 25%, transparent); border-radius: 16px; padding: 20px 22px; margin: 16px 0; }
+  .practice h3 { margin: 0 0 8px; color: var(--verified); font-size: 16px; font-weight: 900; }
+  .decisions { display: grid; gap: 14px; }
+  table { width: 100%; border-collapse: collapse; margin: 16px 0 40px; font-size: 13.5px; }
+  th, td { text-align: left; padding: 8px 10px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--slate); font-weight: 700; font-size: 12px; text-transform: uppercase; letter-spacing: 0.03em; }
+  footer { margin-top: 60px; padding-top: 20px; border-top: 1px solid var(--line); color: var(--slate); font-size: 13px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>CivicFix — Code Tour &amp; App Map</h1>
+  <p class="sub">A guided walk through the finished codebase, in the order a real report actually flows through it — plus one habit worth carrying into your next build. Generated 2026-10-23, after Slice 11 (step-by-step filing instructions + real tutorial videos).</p>
+
+  <h2><span class="num">1</span>The journey, as code</h2>
+  <p class="lede">Four screens, three AI calls, one data file doing the heavy lifting. This is the order a photo actually travels through the app:</p>
+  <div class="flow">
+    <span class="step">CaptureStep.tsx</span><span class="arrow">→</span>
+    <span class="step">/api/classify</span><span class="arrow">→</span>
+    <span class="step">/api/research</span><span class="arrow">→</span>
+    <span class="step">/api/draft</span><span class="arrow">→</span>
+    <span class="step">ReviewStep.tsx</span><span class="arrow">→</span>
+    <span class="step">HandoffStep.tsx</span>
+  </div>
+
+  <h2><span class="num">2</span>Stop by stop</h2>
+
+  <div class="card">
+    <p class="file"><span class="tag ui">UI</span><code>src/components/CaptureStep.tsx</code></p>
+    <p>Owns the whole pipeline's state in one component rather than three separate stateless screens — <code>phase</code> switches between capture / review / handoff, so real results flow straight through without re-fetching anything.</p>
+    <p class="why">Why it's built this way: a manual category override in Review has to re-trigger research and drafting for the corrected category (see <code>handleCategoryOverride</code>) — that only works cleanly when one component owns the whole chain.</p>
+  </div>
+
+  <div class="card">
+    <p class="file"><span class="tag api">API</span><code>src/app/api/classify/route.ts</code></p>
+    <p>Sends the photo (and description) to Groq's vision model. Returns a category, a confidence score, and — distinctly — an <code>isCivicIssue</code> boolean.</p>
+    <p class="why">Why: confidence alone couldn't tell "ambiguous civic photo" apart from "not a civic photo at all" (a face, a pet). Splitting them stops the pipeline from quietly drafting a nonsense complaint for an irrelevant photo.</p>
+  </div>
+
+  <div class="card">
+    <p class="file"><span class="tag api">API</span><code>src/app/api/research/route.ts</code> <span class="tag data">reads authorities.json</span></p>
+    <p>The project's actual unique kernel. Loads <code>src/data/authorities.json</code> (cached in memory per server process — restart after editing it), scopes to the reporter's city, and asks the model to pick the correct pre-verified entry — never to invent one.</p>
+    <p class="why">Why: a safety net (<code>matchedEntry</code>) checks the model's chosen <code>reportingChannel</code> against the real entries it was offered, and <strong>builds the response from that verified entry, not the model's echoed JSON</strong> — so a model typo or omission can never corrupt the step list or drop a verified field. This is the single most important pattern in the codebase; see Section 3.</p>
+  </div>
+
+  <div class="card">
+    <p class="file"><span class="tag api">API</span><code>src/app/api/draft/route.ts</code></p>
+    <p>Takes the classified category, the research result, the description, and the location, and asks the model to write the actual complaint text.</p>
+  </div>
+
+  <div class="card">
+    <p class="file"><span class="tag ui">UI</span><code>src/components/ReviewStep.tsx</code></p>
+    <p>Every drafted field is a real editable input — nothing leaves the app without a chance to fix it, including a full category override.</p>
+  </div>
+
+  <div class="card">
+    <p class="file"><span class="tag ui">UI</span><code>src/components/HandoffStep.tsx</code></p>
+    <p>The actual proof-of-concept finish line: opens the real government portal in a new tab, with the complaint text ready to copy, plus (Slice 11) a numbered step list, a helpline, and a real tutorial video — all optional props, all sourced straight from the verified data, none generated on the fly.</p>
+  </div>
+
+  <div class="card">
+    <p class="file"><span class="tag data">DATA</span><code>src/data/authorities.json</code></p>
+    <p>Every fact a reporter is ever shown about a government authority lives here, and nowhere else: <code>national_fallback</code> (CPGRAMS) plus <code>cities.&lt;slug&gt;.{pothole,streetlight,water,general_fallback}</code>, each with a URL, a cited <code>sourceNote</code>, and (as of Slice 11) live-verified <code>filingSteps</code>, <code>helplinePhone</code>, and <code>tutorialVideoUrl</code>.</p>
+    <p class="why">Why: this file is what makes "never hallucinate a government source" enforceable in code rather than just a prompt instruction — see Section 3.</p>
+  </div>
+
+  <h2><span class="num">3</span>Decisions worth remembering</h2>
+  <p class="lede">Three choices in this codebase generalize well beyond this one project:</p>
+  <div class="decisions">
+    <div class="card">
+      <p class="file">Verified data as source of truth, AI as a <em>chooser</em>, not a <em>knower</em></p>
+      <p>The model never answers "who handles this?" from its own knowledge. It's handed a small, real, pre-verified slice of <code>authorities.json</code> and asked to pick from it. Hallucination risk drops from "the model might invent a government URL" to "the model might pick the wrong one of three real options" — and even that's caught by the safety net below.</p>
+    </div>
+    <div class="card">
+      <p class="file">Reconcile against source data, don't trust the model's echo</p>
+      <p><code>/api/research/route.ts</code> asks the model to return five short fields, then — instead of using that JSON directly — finds the matching entry in the original verified data and builds the real response from <em>that</em>. Anything long, structured, or easy to garble in a retype (like <code>filingSteps</code>, an array of strings) flows through from the source, never from what the model typed back.</p>
+    </div>
+    <div class="card">
+      <p class="file">When a tool says "not found," try a different tool before concluding it's true</p>
+      <p>Plain web search returned zero real YouTube links across 10+ queries for Slice 11's tutorial videos. Navigating directly to <code>youtube.com/results?search_query=...</code> in a live browser found a real, relevant video on the first try, every time. The lesson wasn't "no videos exist" — it was "this search path doesn't reach them."</p>
+    </div>
+  </div>
+
+  <h2><span class="num">4</span>A practice to reuse</h2>
+  <div class="practice">
+    <h3>Before trusting an AI-cited source, ask: can a human (or the agent itself) click through it live?</h3>
+    <p>This project shipped twice with broken links its own research had confirmed "working" — a dead typo'd URL on GHMC's own FAQ page, a redirect that had since rotted on Chennai's site. Both were only caught by actually navigating the real site with a browser, not by re-checking that the URL returned <code>200 OK</code>. Reachability and usability are different claims. The next time an agent (yours or Claude's) hands you a cited source for something that matters — a government portal, a docs page, an API endpoint — the cheap extra step is: open it for real, click one level deeper than the homepage, and see what a first-time user would actually hit. It catches a category of failure that automated fetching quietly can't.</p>
+  </div>
+
+  <h2><span class="num">5</span>Quick reference</h2>
+  <table>
+    <tr><th>File</th><th>Role</th></tr>
+    <tr><td><code>src/app/page.tsx</code></td><td>Landing page (marketing) at <code>/</code></td></tr>
+    <tr><td><code>src/app/app/page.tsx</code></td><td>Renders <code>CaptureStep</code> at <code>/app</code> — the actual tool</td></tr>
+    <tr><td><code>src/components/CaptureStep.tsx</code></td><td>Pipeline state owner — capture → review → handoff</td></tr>
+    <tr><td><code>src/components/PipelineAnimation.tsx</code></td><td>The animated classify/research/draft progress, tied to real fetches</td></tr>
+    <tr><td><code>src/components/ReviewStep.tsx</code></td><td>Editable review of every drafted field, with category override</td></tr>
+    <tr><td><code>src/components/HandoffStep.tsx</code></td><td>Real portal link + copyable complaint + step list + video</td></tr>
+    <tr><td><code>src/app/api/classify/route.ts</code></td><td>Photo → category + confidence + isCivicIssue</td></tr>
+    <tr><td><code>src/app/api/research/route.ts</code></td><td>Category + city → verified authority (the kernel)</td></tr>
+    <tr><td><code>src/app/api/draft/route.ts</code></td><td>Everything gathered → final complaint text</td></tr>
+    <tr><td><code>src/app/api/geocode/route.ts</code></td><td>Lat/lng → place name + normalized city slug (<code>CITY_ALIASES</code>)</td></tr>
+    <tr><td><code>src/data/authorities.json</code></td><td>Every verified government source, step list, helpline, and video</td></tr>
+    <tr><td><code>src/lib/types.ts</code></td><td>Shared shapes — the contract between the API routes and the UI</td></tr>
+    <tr><td><code>devpost/scope.md</code> / <code>prd.md</code> / <code>spec.md</code> / <code>checklist.md</code></td><td>What this is, what it must do, how it's built, and what actually happened along the way</td></tr>
+  </table>
+
+  <footer>CivicFix — Build With AI: BASICS, Devpost hackathon, deadline Oct 26 2026.</footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CivicFix — Technical Spec</title>
+<style>
+  :root {
+    --bg: #f7f5f0; --surface: #ffffff; --surface-2: #f0ede6; --text: #1c1a16;
+    --text-dim: #5c574c; --border: #ddd7c8; --accent: #c2410c; --accent-soft: #fde9d9;
+    --verify: #0e6e55; --verify-soft: #dcf2ea; --now: #1d4ed8; --now-soft: #dbe6fd;
+    --later: #6b7280; --later-soft: #e9e9eb; --flag: #7c3aed; --flag-soft: #ede8fd;
+    --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #141310; --surface: #1d1b17; --surface-2: #26241f; --text: #f2efe8;
+      --text-dim: #b5ae9e; --border: #38352c; --accent: #fb923c; --accent-soft: #3a2615;
+      --verify: #4ade80; --verify-soft: #15291f; --now: #93c5fd; --now-soft: #16223f;
+      --later: #9ca3af; --later-soft: #232323; --flag: #c4b5fd; --flag-soft: #271f3d;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #141310; --surface: #1d1b17; --surface-2: #26241f; --text: #f2efe8;
+    --text-dim: #b5ae9e; --border: #38352c; --accent: #fb923c; --accent-soft: #3a2615;
+    --verify: #4ade80; --verify-soft: #15291f; --now: #93c5fd; --now-soft: #16223f;
+    --later: #9ca3af; --later-soft: #232323; --flag: #c4b5fd; --flag-soft: #271f3d;
+  }
+  * { box-sizing: border-box; }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: ui-sans-serif, system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    margin: 0; padding: 0 16px 64px; line-height: 1.55;
+  }
+  .wrap { max-width: 800px; margin: 0 auto; }
+  header { padding: 48px 0 16px; }
+  .eyebrow {
+    display: inline-block; font-size: 12px; font-weight: 700; letter-spacing: 0.08em;
+    text-transform: uppercase; color: var(--accent); background: var(--accent-soft);
+    padding: 4px 10px; border-radius: 999px; margin-bottom: 14px;
+  }
+  h1 { font-size: clamp(30px, 6.5vw, 40px); margin: 0 0 10px; letter-spacing: -0.02em; }
+  .tagline { font-size: 17px; color: var(--text-dim); max-width: 60ch; margin: 0; }
+  section { margin-top: 40px; }
+  h2 {
+    font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--text-dim); margin: 0 0 12px;
+  }
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 22px 24px; }
+  .plain { font-size: 15.5px; }
+  .plain p:first-child { margin-top: 0; }
+  .plain p:last-child { margin-bottom: 0; }
+
+  code, .mono { font-family: var(--mono); font-size: 13px; }
+  .badge {
+    display: inline-block; font-family: var(--mono); font-size: 12px;
+    background: var(--surface-2); border: 1px solid var(--border); border-radius: 6px;
+    padding: 2px 8px; color: var(--text);
+  }
+
+  svg { width: 100%; height: auto; display: block; }
+  .node-box { fill: var(--surface); stroke: var(--border); stroke-width: 1.5; }
+  .node-box.browser { fill: var(--now-soft); stroke: var(--now); }
+  .node-box.server { fill: var(--surface-2); stroke: var(--border); }
+  .node-box.ai { fill: var(--accent-soft); stroke: var(--accent); }
+  .node-box.data { fill: var(--verify-soft); stroke: var(--verify); }
+  .node-title { font-size: 14px; font-weight: 700; fill: var(--text); }
+  .node-sub { font-size: 11.5px; fill: var(--text-dim); font-family: var(--mono); }
+  .arrow { stroke: var(--text-dim); stroke-width: 1.8; fill: none; marker-end: url(#arrowhead); }
+  .arrow-label { font-size: 11px; fill: var(--text-dim); }
+  figcaption { text-align: center; font-size: 13px; color: var(--text-dim); margin-top: 10px; }
+
+  .stepper { display: grid; gap: 12px; }
+  .step-row {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+    padding: 14px 18px; display: flex; gap: 14px; align-items: flex-start;
+  }
+  .step-num {
+    flex: none; width: 26px; height: 26px; border-radius: 50%; background: var(--now-soft);
+    color: var(--now); font-weight: 700; font-size: 13px; display: flex; align-items: center;
+    justify-content: center;
+  }
+  .step-text { font-size: 14.5px; }
+  .step-text b { color: var(--text); }
+
+  details {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px; overflow: hidden;
+  }
+  details[open] { border-color: var(--now); }
+  summary {
+    cursor: pointer; padding: 14px 18px; font-weight: 700; list-style: none;
+    display: flex; align-items: center; gap: 10px; font-size: 14.5px;
+  }
+  summary::-webkit-details-marker { display: none; }
+  summary::before { content: "▸"; display: inline-block; transition: transform 0.15s ease; color: var(--text-dim); }
+  details[open] summary::before { transform: rotate(90deg); }
+  details .body { padding: 0 18px 18px; color: var(--text-dim); font-size: 14px; }
+  .comp-grid { display: grid; gap: 10px; }
+  .prd-ref {
+    display: inline-block; margin-top: 8px; font-family: var(--mono); font-size: 11.5px;
+    background: var(--verify-soft); color: var(--verify); padding: 2px 8px; border-radius: 6px;
+  }
+
+  pre.tree {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+    padding: 18px 20px; overflow-x: auto; font-size: 12.5px; line-height: 1.6;
+  }
+
+  .flag {
+    background: var(--flag-soft); border: 1px solid var(--flag); border-radius: 12px;
+    padding: 14px 18px; font-size: 14px; color: var(--text); margin-bottom: 12px;
+  }
+  .flag b { color: var(--flag); }
+
+  .fail-grid { display: grid; gap: 10px; }
+  .fail-row {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+    padding: 12px 16px; font-size: 14px;
+  }
+  .fail-row b { color: var(--accent); }
+
+  .footer-note {
+    margin-top: 56px; font-size: 13px; color: var(--text-dim);
+    border-top: 1px solid var(--border); padding-top: 16px;
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <span class="eyebrow">Spec · Draft</span>
+    <h1>CivicFix — Technical Spec</h1>
+    <p class="tagline">The blueprint for how the PRD actually gets built: one Next.js app, one AI provider, zero database.</p>
+  </header>
+
+  <section>
+    <h2>How This Works, In Plain Language</h2>
+    <div class="card plain">
+      <p>CivicFix is a website you open on your phone's browser — no app install, no login. You take or upload a photo of a civic problem. That photo, plus what you typed and your location, goes to the site's own backend — a few small server functions living in the same project as the website.</p>
+      <p>The backend calls Google's Gemini AI three times in a row: once to look at the photo and say what kind of problem it is, once to search the web for which Hyderabad authority actually handles it (and show where it found that out), and once to turn all of it into a properly written complaint. Each call happens for real, one after another — the pipeline animation on screen is tied directly to them finishing, not a fake loading bar.</p>
+      <p>You then see the finished complaint, can edit anything that looks wrong, and tap a button that opens the real government website so you can file it yourself. Nothing is saved anywhere — no database, no account. The only "memory" the app has is a small file of pre-verified official sources it checks its own research against, so it can't confidently invent an authority that doesn't exist.</p>
+    </div>
+  </section>
+
+  <section>
+    <h2>The Core Journey Through the System</h2>
+    <figure>
+      <svg viewBox="0 0 680 560" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Architecture diagram: browser capture, three sequential API calls to Gemini backed by a verified sources file, review, hand-off to the real portal">
+        <defs>
+          <marker id="arrowhead" markerWidth="7" markerHeight="7" refX="5.5" refY="3.5" orient="auto">
+            <path d="M0,0 L7,3.5 L0,7 Z" fill="currentColor" style="color:var(--text-dim)"/>
+          </marker>
+        </defs>
+
+        <!-- Browser -->
+        <rect class="node-box browser" x="20" y="10" width="300" height="90" rx="12"/>
+        <text class="node-title" x="170" y="40" text-anchor="middle">📱 Browser (React)</text>
+        <text class="node-sub" x="170" y="60" text-anchor="middle">page.tsx — Capture / Pipeline /</text>
+        <text class="node-sub" x="170" y="76" text-anchor="middle">Review / Hand-off</text>
+
+        <path class="arrow" d="M320,55 L420,55"/>
+        <text class="arrow-label" x="370" y="46" text-anchor="middle">fetch</text>
+
+        <!-- Server -->
+        <rect class="node-box server" x="420" y="10" width="240" height="90" rx="12"/>
+        <text class="node-title" x="540" y="40" text-anchor="middle">⚙️ API routes</text>
+        <text class="node-sub" x="540" y="60" text-anchor="middle">/api/classify /research /draft</text>
+        <text class="node-sub" x="540" y="76" text-anchor="middle">(GEMINI_API_KEY stays here)</text>
+
+        <path class="arrow" d="M540,100 L540,140"/>
+
+        <!-- Gemini -->
+        <rect class="node-box ai" x="420" y="140" width="240" height="90" rx="12"/>
+        <text class="node-title" x="540" y="170" text-anchor="middle">🤖 Gemini 2.5 Flash</text>
+        <text class="node-sub" x="540" y="190" text-anchor="middle">vision + Google Search</text>
+        <text class="node-sub" x="540" y="206" text-anchor="middle">grounding + text generation</text>
+
+        <path class="arrow" d="M420,185 L330,185"/>
+        <text class="arrow-label" x="375" y="176" text-anchor="middle">cross-check</text>
+
+        <!-- authorities.json -->
+        <rect class="node-box data" x="60" y="140" width="270" height="90" rx="12"/>
+        <text class="node-title" x="195" y="170" text-anchor="middle">📋 authorities.json</text>
+        <text class="node-sub" x="195" y="190" text-anchor="middle">pre-verified GHMC / TGSPDCL/</text>
+        <text class="node-sub" x="195" y="206" text-anchor="middle">TSSPDCL / HMWSSB sources</text>
+
+        <path class="arrow" d="M540,230 L540,270"/>
+        <path class="arrow" d="M420,55 L320,55" transform="translate(0,215)"/>
+
+        <!-- Response back -->
+        <text class="arrow-label" x="540" y="260" text-anchor="middle">response (3 calls, in sequence)</text>
+
+        <!-- Review -->
+        <rect class="node-box browser" x="420" y="270" width="240" height="90" rx="12"/>
+        <text class="node-title" x="540" y="300" text-anchor="middle">📝 Review (browser)</text>
+        <text class="node-sub" x="540" y="320" text-anchor="middle">all fields editable —</text>
+        <text class="node-sub" x="540" y="336" text-anchor="middle">nothing persisted</text>
+
+        <path class="arrow" d="M540,360 L540,400"/>
+
+        <!-- Handoff -->
+        <rect class="node-box ai" x="420" y="400" width="240" height="100" rx="12"/>
+        <text class="node-title" x="540" y="430" text-anchor="middle">🏢 Real official portal</text>
+        <text class="node-sub" x="540" y="450" text-anchor="middle">opens in new tab —</text>
+        <text class="node-sub" x="540" y="466" text-anchor="middle">user files it themselves,</text>
+        <text class="node-sub" x="540" y="482" text-anchor="middle">no fake submission</text>
+      </svg>
+      <figcaption>Three real, sequential AI calls — the pipeline animation shows exactly what's happening, no simulated timing.</figcaption>
+    </figure>
+  </section>
+
+  <section>
+    <h2>The Journey, Step by Step</h2>
+    <div class="stepper">
+      <div class="step-row"><span class="step-num">1</span><span class="step-text">User opens the site on their phone → <b>Capture</b> step renders. Photo, optional description, location permission — all held as browser state, nothing sent yet.</span></div>
+      <div class="step-row"><span class="step-num">2</span><span class="step-text">Tap "Analyze" → <b>Pipeline</b> step. Three calls fire in sequence: <span class="badge">/api/classify</span> → <span class="badge">/api/research</span> → <span class="badge">/api/draft</span>. Each icon updates the moment its real call resolves.</span></div>
+      <div class="step-row"><span class="step-num">3</span><span class="step-text"><b>Review</b> step: every field pre-filled and editable — category, location, description, authority, filer name/contact.</span></div>
+      <div class="step-row"><span class="step-num">4</span><span class="step-text">Tap "Open Official Reporting Channel" → <b>Hand-off</b> step opens the real government portal and shows the complaint text ready to copy in.</span></div>
+      <div class="step-row"><span class="step-num">5</span><span class="step-text">Nothing is written back to CivicFix. Refresh starts a brand-new, empty report.</span></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Stack</h2>
+    <div class="card">
+      <ul style="margin:0; padding-left:20px;">
+        <li><b>Next.js 14 (App Router) + React + TypeScript</b> — one project, frontend and backend together, so the API key never reaches the browser.</li>
+        <li><b>Tailwind CSS</b> — fast, polished mobile styling without a hand-built design system.</li>
+        <li><b>Framer Motion</b> — the premium animation requirement lives here: the pipeline step and screen transitions.</li>
+        <li><b>Google Gemini 2.5 Flash</b> — free tier, no credit card, confirmed free image input + free Search grounding (≤500/day). One provider for all three AI steps.</li>
+        <li><b>No database, no auth</b> — each report is one in-browser session; matches the PRD's deferred accounts/history decision.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>Components</h2>
+    <div class="comp-grid">
+      <details open>
+        <summary>CaptureStep</summary>
+        <div class="body">Photo capture/upload, description textarea, location permission. Holds local form state until "Analyze" is tapped.<br><span class="prd-ref">prd.md &gt; Capture</span></div>
+      </details>
+      <details>
+        <summary>PipelineAnimation</summary>
+        <div class="body">Fires the three sequential API calls; animates each step's state as its real <code>fetch</code> resolves.<br><span class="prd-ref">prd.md &gt; Pipeline animation</span></div>
+      </details>
+      <details>
+        <summary>ReviewStep</summary>
+        <div class="body">Renders the draft as editable fields. Category defaults to the AI's pick, or stays blank if confidence was low.<br><span class="prd-ref">prd.md &gt; Complaint drafting and review</span></div>
+      </details>
+      <details>
+        <summary>HandoffStep</summary>
+        <div class="body">Shows the finished complaint text (copyable) and the button that opens the real portal, or the general fallback.<br><span class="prd-ref">prd.md &gt; Hand-off</span></div>
+      </details>
+      <details>
+        <summary>/api/classify, /api/research, /api/draft</summary>
+        <div class="body">Server-side route handlers — the only place the Gemini API key is used. Each does exactly one of the three AI steps.<br><span class="prd-ref">prd.md &gt; Vision classification, Authority research, Complaint drafting</span></div>
+      </details>
+      <details>
+        <summary>authorities.json</summary>
+        <div class="body">Pre-verified official sources for the 3 categories + the general GHMC fallback. Populated with real, verified URLs as the first real research task of the build.</div>
+      </details>
+    </div>
+  </section>
+
+  <section>
+    <h2>File Structure</h2>
+    <pre class="tree">civicfix/
+├── devpost/                     # planning docs (scope, prd, spec)
+├── public/icons/                 # app icons
+├── src/
+│   ├── app/
+│   │   ├── page.tsx               # app shell — holds state, renders active step
+│   │   ├── layout.tsx
+│   │   ├── globals.css
+│   │   └── api/
+│   │       ├── classify/route.ts  # photo → category + confidence
+│   │       ├── research/route.ts  # category + location → authority + source
+│   │       └── draft/route.ts     # gathered data → drafted complaint
+│   ├── components/
+│   │   ├── CaptureStep.tsx
+│   │   ├── PipelineAnimation.tsx
+│   │   ├── ReviewStep.tsx
+│   │   └── HandoffStep.tsx
+│   ├── lib/
+│   │   ├── gemini.ts               # Gemini client + call helpers
+│   │   └── types.ts
+│   └── data/
+│       └── authorities.json        # pre-verified Hyderabad sources
+├── .env.example                    # GEMINI_API_KEY=
+├── package.json
+└── README.md</pre>
+  </section>
+
+  <section>
+    <h2>Flagged — Verify Early in the Build</h2>
+    <div class="flag">
+      <b>Not fully confirmed:</b> Google stopped publishing exact Gemini free-tier rate limits, and third-party sources disagree on the newest models' numbers. Google's own pricing page states Search grounding is free up to 500 requests/day on <code>gemini-2.5-flash</code> specifically — far more than this project needs — but the exact current SDK package name and call syntax should be checked against the live docs as the very first technical step, before building the pipeline on top of it.
+    </div>
+    <div class="flag">
+      <b>Not yet real:</b> <code>authorities.json</code>'s official URLs for GHMC / TGSPDCL / TSSPDCL / HMWSSB are placeholders until verified. Populating this with real, checked sources is a build task, not a design decision — it doesn't block this spec's approval.
+    </div>
+  </section>
+
+  <section>
+    <h2>Important Failure Modes</h2>
+    <div class="fail-grid">
+      <div class="fail-row"><b>A Gemini call is slow or fails</b> → plain "taking longer than expected" message with a retry button, not a silent hang.</div>
+      <div class="fail-row"><b>Low-confidence classification</b> → category field left blank on Review for manual pick, no error shown.</div>
+      <div class="fail-row"><b>No verified authority found</b> → falls back to the general GHMC portal, clearly labeled as a fallback.</div>
+      <div class="fail-row"><b>Location permission denied</b> → flow continues; complaint notes "location not provided."</div>
+    </div>
+  </section>
+
+  <p class="footer-note">Technical spec for CivicFix · Build With AI: Basics hackathon · Markdown version (<code>spec.md</code>) is canonical; this page is a visual companion for review.</p>
+
+</div>
+</body>
+</html>
