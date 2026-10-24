@@ -23,6 +23,8 @@ import { useState } from "react";
 
 interface HandoffStepProps {
   authorityName: string;
+  officialDomain?: string;
+  verifiedDate?: string;
   reportingChannel: string;
   reportingChannelLabel: string;
   complaintText: string;
@@ -34,8 +36,19 @@ interface HandoffStepProps {
   onStartOver: () => void;
 }
 
+// "2026-10-23" -> "Oct 23, 2026" — never throws on an unexpected format, since
+// this is a trust signal, not critical data; worst case it just doesn't render.
+function formatVerifiedDate(iso?: string): string | null {
+  if (!iso) return null;
+  const d = new Date(`${iso}T00:00:00Z`);
+  if (Number.isNaN(d.getTime())) return null;
+  return d.toLocaleDateString("en-IN", { year: "numeric", month: "short", day: "numeric", timeZone: "UTC" });
+}
+
 export default function HandoffStep({
   authorityName,
+  officialDomain,
+  verifiedDate,
   reportingChannel,
   reportingChannelLabel,
   complaintText,
@@ -47,6 +60,7 @@ export default function HandoffStep({
   onStartOver,
 }: HandoffStepProps) {
   const [copied, setCopied] = useState(false);
+  const verifiedDateLabel = formatVerifiedDate(verifiedDate);
 
   async function handleCopy() {
     try {
@@ -69,6 +83,27 @@ export default function HandoffStep({
           This opens {authorityName}&rsquo;s real official reporting channel in a new tab. Copy the
           complaint text below and paste it into their form to actually submit it.
         </p>
+        {verifiedDateLabel && (
+          <div className="mt-3 inline-flex items-center gap-1.5 rounded-full border-2 border-verified/25 bg-verified-soft px-3 py-1.5 text-xs font-bold text-verified">
+            <span aria-hidden="true">✓</span>
+            <span>
+              Verified {verifiedDateLabel}
+              {officialDomain && (
+                <>
+                  {" · "}
+                  <a
+                    href={officialDomain}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="underline underline-offset-2"
+                  >
+                    {officialDomain.replace(/^https?:\/\//, "")} ↗
+                  </a>
+                </>
+              )}
+            </span>
+          </div>
+        )}
       </header>
 
       <div className="rounded-2xl border-2 border-signal/25 bg-signal-soft px-4 py-4">

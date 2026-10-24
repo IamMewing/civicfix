@@ -97,6 +97,12 @@ Copy every field's value EXACTLY from the verified data above — never invent o
     const completion = await client.chat.completions.create({
       model: GROQ_MODEL,
       temperature: 0,
+      // See the matching comment in /api/classify: reasoning_effort: "none" stops
+      // this model from quietly burning hidden chain-of-thought tokens against
+      // Groq's free-tier 1000-tokens/minute output cap — this route only needs to
+      // echo back five short fields from data it's already been handed.
+      reasoning_effort: "none",
+      max_completion_tokens: 400,
       messages: [{ role: "user", content: prompt }],
     });
 

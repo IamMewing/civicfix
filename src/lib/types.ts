@@ -41,6 +41,11 @@ export interface AuthorityEntry {
   // Slice 11). Never a guessed or fabricated URL.
   tutorialVideoUrl?: string;
   tutorialVideoLabel?: string;
+  // The date this specific entry's reportingChannel was actually live-verified by
+  // clicking through the real portal (not just when the file was last touched).
+  // Shown directly in the hand-off UI so the "we verified this" claim is something
+  // the reporter can see, not just something true behind the scenes.
+  verifiedDate?: string;
 }
 
 export interface ResearchResult extends AuthorityEntry {

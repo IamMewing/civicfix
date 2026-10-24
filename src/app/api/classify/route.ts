@@ -48,6 +48,14 @@ Respond with ONLY a JSON object, no other text, markdown, or code fences, in exa
     const completion = await client.chat.completions.create({
       model: GROQ_MODEL,
       temperature: 0.2,
+      // Groq's free tier caps output at 1000 tokens/minute (OTPM). This model can
+      // silently spend hundreds of tokens on hidden chain-of-thought before ever
+      // writing the JSON answer, which is what tripped a real 429 in production —
+      // reasoning_effort: "none" turns that reasoning off entirely (not just hidden
+      // via reasoning_format), and max_completion_tokens is a hard backstop sized
+      // for the short JSON object this route actually needs.
+      reasoning_effort: "none",
+      max_completion_tokens: 300,
       messages: [
         {
           role: "user",

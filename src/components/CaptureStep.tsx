@@ -338,6 +338,8 @@ export default function CaptureStep() {
     screen = (
       <HandoffStep
         authorityName={research.authorityName}
+        officialDomain={research.officialDomain}
+        verifiedDate={research.verifiedDate}
         reportingChannel={research.reportingChannel}
         reportingChannelLabel={research.reportingChannelLabel}
         complaintText={editedComplaintText}
@@ -487,10 +489,12 @@ export default function CaptureStep() {
                 </div>
               </div>
               <div className="mt-2.5 text-sm leading-relaxed text-ink/80">{result.reasoning}</div>
-              {!result.isCivicIssue && (
+              {(!result.isCivicIssue || result.category === "uncertain" || result.confidence < 0.5) && (
                 <div className="mt-3 flex flex-wrap items-center gap-2 border-t border-ink/10 pt-3">
                   <span className="text-xs font-semibold text-ink/50">
-                    Actually a pothole, streetlight, or water problem?
+                    {!result.isCivicIssue
+                      ? "Actually a pothole, streetlight, or water problem?"
+                      : "Not confident — pick the right one yourself:"}
                   </span>
                   {(["pothole", "streetlight", "water"] as const).map((c) => (
                     <button
@@ -547,6 +551,18 @@ export default function CaptureStep() {
               )}
               <div className="font-display text-lg font-black text-verified">{research.authorityName}</div>
               <div className="mt-1 text-sm leading-relaxed text-ink/80">{research.sourceNote}</div>
+              {research.verifiedDate && (
+                <div className="mt-2 text-xs font-bold text-verified/80">
+                  ✓ Verified{" "}
+                  {new Date(`${research.verifiedDate}T00:00:00Z`).toLocaleDateString("en-IN", {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                    timeZone: "UTC",
+                  })}
+                  {research.officialDomain && ` · ${research.officialDomain.replace(/^https?:\/\//, "")}`}
+                </div>
+              )}
               <a
                 href={research.reportingChannel}
                 target="_blank"

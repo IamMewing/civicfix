@@ -16,7 +16,8 @@
       "Fill in the grievance details and submit — you'll get a registration number by SMS/email to track status."
     ],
     "tutorialVideoUrl": "https://www.youtube.com/shorts/6zSYgLBF-7I",
-    "tutorialVideoLabel": "Complain directly to PMO | How to file a Complaint on CPGRAM — Tutorial Tuesdays Ep. 2 (Labour Law Advisor)"
+    "tutorialVideoLabel": "Complain directly to PMO | How to file a Complaint on CPGRAM — Tutorial Tuesdays Ep. 2 (Labour Law Advisor)",
+    "verifiedDate": "2026-10-23"
   },
   "cities": {
     "hyderabad": {
@@ -34,7 +35,8 @@
         ],
         "helplinePhone": null,
         "tutorialVideoUrl": "https://www.youtube.com/watch?v=O4rjTvu91eg",
-        "tutorialVideoLabel": "How to complaint GHMC | Drainage, Garbage, Potholes, Electricity, Roads complaints in My GHMC app"
+        "tutorialVideoLabel": "How to complaint GHMC | Drainage, Garbage, Potholes, Electricity, Roads complaints in My GHMC app",
+        "verifiedDate": "2026-10-23"
       },
       "streetlight": {
         "authorityName": "GHMC — Street Lighting Section",
@@ -50,7 +52,8 @@
         ],
         "helplinePhone": null,
         "tutorialVideoUrl": "https://www.youtube.com/watch?v=O4rjTvu91eg",
-        "tutorialVideoLabel": "How to complaint GHMC | Drainage, Garbage, Potholes, Electricity, Roads complaints in My GHMC app"
+        "tutorialVideoLabel": "How to complaint GHMC | Drainage, Garbage, Potholes, Electricity, Roads complaints in My GHMC app",
+        "verifiedDate": "2026-10-23"
       },
       "water": {
         "authorityName": "HMWSSB (Hyderabad Metropolitan Water Supply and Sewerage Board)",
@@ -66,7 +69,8 @@
         ],
         "helplinePhone": null,
         "tutorialVideoUrl": "https://www.youtube.com/watch?v=0L_IjWHv99U",
-        "tutorialVideoLabel": "HMWSSB App Review — Pay Water Bills Online, Register Complaints & Manage Water Services"
+        "tutorialVideoLabel": "HMWSSB App Review — Pay Water Bills Online, Register Complaints & Manage Water Services",
+        "verifiedDate": "2026-10-12"
       },
       "general_fallback": {
         "authorityName": "GHMC — General Citizen Grievance (fallback when the specific authority can't be confidently identified)",
@@ -82,7 +86,8 @@
         ],
         "helplinePhone": null,
         "tutorialVideoUrl": "https://www.youtube.com/watch?v=O4rjTvu91eg",
-        "tutorialVideoLabel": "How to complaint GHMC | Drainage, Garbage, Potholes, Electricity, Roads complaints in My GHMC app"
+        "tutorialVideoLabel": "How to complaint GHMC | Drainage, Garbage, Potholes, Electricity, Roads complaints in My GHMC app",
+        "verifiedDate": "2026-10-23"
       }
     },
     "bengaluru": {
@@ -100,7 +105,8 @@
         ],
         "helplinePhone": null,
         "tutorialVideoUrl": "https://www.youtube.com/watch?v=buIgTqytv3I",
-        "tutorialVideoLabel": "BBMP Pothole Complaint: Easy Steps to Report and Escalate | Get Results Fast"
+        "tutorialVideoLabel": "BBMP Pothole Complaint: Easy Steps to Report and Escalate | Get Results Fast",
+        "verifiedDate": "2026-10-23"
       },
       "streetlight": {
         "authorityName": "BBMP — Street Lighting Section",
@@ -116,7 +122,8 @@
         ],
         "helplinePhone": null,
         "tutorialVideoUrl": "https://www.youtube.com/watch?v=buIgTqytv3I",
-        "tutorialVideoLabel": "BBMP Pothole Complaint: Easy Steps to Report and Escalate | Get Results Fast"
+        "tutorialVideoLabel": "BBMP Pothole Complaint: Easy Steps to Report and Escalate | Get Results Fast",
+        "verifiedDate": "2026-10-23"
       },
       "water": {
         "authorityName": "BWSSB (Bangalore Water Supply and Sewerage Board) — via Karnataka's iPGRS",
@@ -132,7 +139,8 @@
         ],
         "helplinePhone": "1902",
         "tutorialVideoUrl": "https://www.youtube.com/watch?v=wgjiLDgSqio",
-        "tutorialVideoLabel": "How to File Government Complaints in Karnataka through Janaspandana iPGRS"
+        "tutorialVideoLabel": "How to File Government Complaints in Karnataka through Janaspandana iPGRS",
+        "verifiedDate": "2026-10-23"
       },
       "general_fallback": {
         "authorityName": "BBMP — General Citizen Grievance (fallback when the specific authority can't be confidently identified)",
@@ -148,7 +156,8 @@
         ],
         "helplinePhone": null,
         "tutorialVideoUrl": "https://www.youtube.com/watch?v=buIgTqytv3I",
-        "tutorialVideoLabel": "BBMP Pothole Complaint: Easy Steps to Report and Escalate | Get Results Fast"
+        "tutorialVideoLabel": "BBMP Pothole Complaint: Easy Steps to Report and Escalate | Get Results Fast",
+        "verifiedDate": "2026-10-23"
       }
     },
     "mumbai": {
@@ -166,7 +175,8 @@
         ],
         "helplinePhone": null,
         "tutorialVideoUrl": "https://www.youtube.com/watch?v=wk4NqEC10iQ",
-        "tutorialVideoLabel": "मुंबई महानगरपालिकेकडे ऑनलाइन तक्रार कशी नोंदवायची | How to register online complaint to BMC Mumbai"
+        "tutorialVideoLabel": "मुंबई महानगरपालिकेकडे ऑनलाइन तक्रार कशी नोंदवायची | How to register online complaint to BMC Mumbai",
+        "verifiedDate": "2026-10-23"
       },
       "streetlight": {
         "authorityName": "MCGM / BMC — Street Lighting",
@@ -182,7 +192,8 @@
         ],
         "helplinePhone": null,
         "tutorialVideoUrl": "https://www.youtube.com/watch?v=wk4NqEC10iQ",
-        "tutorialVideoLabel": "मुंबई महानगरपालिकेकडे ऑनलाइन तक्रार कशी नोंदवायची | How to register online complaint to BMC Mumbai"
+        "tutorialVideoLabel": "मुंबई महानगरपालिकेकडे ऑनलाइन तक्रार कशी नोंदवायची | How to register online complaint to BMC Mumbai",
+        "verifiedDate": "2026-10-23"
       },
       "water": {
         "authorityName": "MCGM / BMC — Water Supply Department",
@@ -198,7 +209,8 @@
         ],
         "helplinePhone": null,
         "tutorialVideoUrl": "https://www.youtube.com/watch?v=wk4NqEC10iQ",
-        "tutorialVideoLabel": "मुंबई महानगरपालिकेकडे ऑनलाइन तक्रार कशी नोंदवायची | How to register online complaint to BMC Mumbai"
+        "tutorialVideoLabel": "मुंबई महानगरपालिकेकडे ऑनलाइन तक्रार कशी नोंदवायची | How to register online complaint to BMC Mumbai",
+        "verifiedDate": "2026-10-23"
       },
       "general_fallback": {
         "authorityName": "MCGM / BMC — General Citizen Grievance",
@@ -214,7 +226,8 @@
         ],
         "helplinePhone": null,
         "tutorialVideoUrl": "https://www.youtube.com/watch?v=wk4NqEC10iQ",
-        "tutorialVideoLabel": "मुंबई महानगरपालिकेकडे ऑनलाइन तक्रार कशी नोंदवायची | How to register online complaint to BMC Mumbai"
+        "tutorialVideoLabel": "मुंबई महानगरपालिकेकडे ऑनलाइन तक्रार कशी नोंदवायची | How to register online complaint to BMC Mumbai",
+        "verifiedDate": "2026-10-23"
       }
     },
     "delhi": {
@@ -232,7 +245,8 @@
         ],
         "helplinePhone": "155305",
         "tutorialVideoUrl": "https://www.youtube.com/watch?v=MX5VxZW8918",
-        "tutorialVideoLabel": "How to do Complaints in Municipal Corporation of Delhi | street light | poll light | road light MCD"
+        "tutorialVideoLabel": "How to do Complaints in Municipal Corporation of Delhi | street light | poll light | road light MCD",
+        "verifiedDate": "2026-10-23"
       },
       "streetlight": {
         "authorityName": "MCD — Street Lighting",
@@ -248,7 +262,8 @@
         ],
         "helplinePhone": "155305",
         "tutorialVideoUrl": "https://www.youtube.com/watch?v=MX5VxZW8918",
-        "tutorialVideoLabel": "How to do Complaints in Municipal Corporation of Delhi | street light | poll light | road light MCD"
+        "tutorialVideoLabel": "How to do Complaints in Municipal Corporation of Delhi | street light | poll light | road light MCD",
+        "verifiedDate": "2026-10-23"
       },
       "water": {
         "authorityName": "Delhi Jal Board (DJB)",
@@ -264,7 +279,8 @@
         ],
         "helplinePhone": "1916",
         "tutorialVideoUrl": "https://www.youtube.com/watch?v=0I0oTvCJLbc",
-        "tutorialVideoLabel": "How to complain online in Delhi Jal Board?"
+        "tutorialVideoLabel": "How to complain online in Delhi Jal Board?",
+        "verifiedDate": "2026-10-23"
       },
       "general_fallback": {
         "authorityName": "MCD — General Citizen Grievance",
@@ -280,7 +296,8 @@
         ],
         "helplinePhone": "155305",
         "tutorialVideoUrl": "https://www.youtube.com/watch?v=MX5VxZW8918",
-        "tutorialVideoLabel": "How to do Complaints in Municipal Corporation of Delhi | street light | poll light | road light MCD"
+        "tutorialVideoLabel": "How to do Complaints in Municipal Corporation of Delhi | street light | poll light | road light MCD",
+        "verifiedDate": "2026-10-23"
       }
     },
     "chennai": {
@@ -298,7 +315,8 @@
         ],
         "helplinePhone": "1913",
         "tutorialVideoUrl": "https://www.youtube.com/watch?v=0Q8OUcD-m9k",
-        "tutorialVideoLabel": "Chennai Corporation Complaint | How to Register an Online Complaint in Chennai (Thagaval Thedal)"
+        "tutorialVideoLabel": "Chennai Corporation Complaint | How to Register an Online Complaint in Chennai (Thagaval Thedal)",
+        "verifiedDate": "2026-10-23"
       },
       "streetlight": {
         "authorityName": "GCC — Street Lighting",
@@ -314,7 +332,8 @@
         ],
         "helplinePhone": "1913",
         "tutorialVideoUrl": "https://www.youtube.com/watch?v=0Q8OUcD-m9k",
-        "tutorialVideoLabel": "Chennai Corporation Complaint | How to Register an Online Complaint in Chennai (Thagaval Thedal)"
+        "tutorialVideoLabel": "Chennai Corporation Complaint | How to Register an Online Complaint in Chennai (Thagaval Thedal)",
+        "verifiedDate": "2026-10-23"
       },
       "water": {
         "authorityName": "CMWSSB (Chennai Metropolitan Water Supply and Sewerage Board)",
@@ -330,7 +349,8 @@
         ],
         "helplinePhone": "1916 / 044-45674567 (phone), +91 8144930308 (WhatsApp)",
         "tutorialVideoUrl": "https://www.youtube.com/watch?v=UukLhjhsz7k",
-        "tutorialVideoLabel": "Chennai water complaint | sewage | How to register online complaint in Chennai (Thagaval Thedal)"
+        "tutorialVideoLabel": "Chennai water complaint | sewage | How to register online complaint in Chennai (Thagaval Thedal)",
+        "verifiedDate": "2026-10-23"
       },
       "general_fallback": {
         "authorityName": "GCC — General Citizen Grievance",
@@ -346,7 +366,8 @@
         ],
         "helplinePhone": "1913",
         "tutorialVideoUrl": "https://www.youtube.com/watch?v=0Q8OUcD-m9k",
-        "tutorialVideoLabel": "Chennai Corporation Complaint | How to Register an Online Complaint in Chennai (Thagaval Thedal)"
+        "tutorialVideoLabel": "Chennai Corporation Complaint | How to Register an Online Complaint in Chennai (Thagaval Thedal)",
+        "verifiedDate": "2026-10-23"
       }
     },
     "kolkata": {
@@ -364,7 +385,8 @@
         ],
         "helplinePhone": "1800-345-3375 (toll-free), WhatsApp 8335988888",
         "tutorialVideoUrl": "https://www.youtube.com/watch?v=Gh5c1pspLOo",
-        "tutorialVideoLabel": "KMC Complaint registration process — Online/Offline, Helpline Numbers and Portal"
+        "tutorialVideoLabel": "KMC Complaint registration process — Online/Offline, Helpline Numbers and Portal",
+        "verifiedDate": "2026-10-23"
       },
       "streetlight": {
         "authorityName": "KMC — Street Lighting",
@@ -380,7 +402,8 @@
         ],
         "helplinePhone": "1800-345-3375 (toll-free), WhatsApp 8335988888",
         "tutorialVideoUrl": "https://www.youtube.com/watch?v=Gh5c1pspLOo",
-        "tutorialVideoLabel": "KMC Complaint registration process — Online/Offline, Helpline Numbers and Portal"
+        "tutorialVideoLabel": "KMC Complaint registration process — Online/Offline, Helpline Numbers and Portal",
+        "verifiedDate": "2026-10-23"
       },
       "water": {
         "authorityName": "KMC — Water Supply Department",
@@ -396,7 +419,8 @@
         ],
         "helplinePhone": "1800-345-3375 (toll-free), WhatsApp 8335988888",
         "tutorialVideoUrl": "https://www.youtube.com/watch?v=Gh5c1pspLOo",
-        "tutorialVideoLabel": "KMC Complaint registration process — Online/Offline, Helpline Numbers and Portal"
+        "tutorialVideoLabel": "KMC Complaint registration process — Online/Offline, Helpline Numbers and Portal",
+        "verifiedDate": "2026-10-23"
       },
       "general_fallback": {
         "authorityName": "KMC — General Citizen Grievance",
@@ -412,7 +436,8 @@
         ],
         "helplinePhone": "1800-345-3375 (toll-free), WhatsApp 8335988888",
         "tutorialVideoUrl": "https://www.youtube.com/watch?v=Gh5c1pspLOo",
-        "tutorialVideoLabel": "KMC Complaint registration process — Online/Offline, Helpline Numbers and Portal"
+        "tutorialVideoLabel": "KMC Complaint registration process — Online/Offline, Helpline Numbers and Portal",
+        "verifiedDate": "2026-10-23"
       }
     },
     "pune": {
@@ -430,7 +455,8 @@
         ],
         "helplinePhone": "1800-1030-222 (toll-free, 7am–11pm)",
         "tutorialVideoUrl": "https://www.youtube.com/watch?v=bP3d7vW2YXs",
-        "tutorialVideoLabel": "पुणे महानगरपालिका तक्रार-सूचना कशी नोंदवावी | How to register a complaint in Pune Municipal Corporation"
+        "tutorialVideoLabel": "पुणे महानगरपालिका तक्रार-सूचना कशी नोंदवावी | How to register a complaint in Pune Municipal Corporation",
+        "verifiedDate": "2026-10-23"
       },
       "streetlight": {
         "authorityName": "PMC — Street Lighting",
@@ -446,7 +472,8 @@
         ],
         "helplinePhone": "1800-1030-222 (toll-free, 7am–11pm)",
         "tutorialVideoUrl": "https://www.youtube.com/watch?v=bP3d7vW2YXs",
-        "tutorialVideoLabel": "पुणे महानगरपालिका तक्रार-सूचना कशी नोंदवावी | How to register a complaint in Pune Municipal Corporation"
+        "tutorialVideoLabel": "पुणे महानगरपालिका तक्रार-सूचना कशी नोंदवावी | How to register a complaint in Pune Municipal Corporation",
+        "verifiedDate": "2026-10-23"
       },
       "water": {
         "authorityName": "PMC — Water Supply Department",
@@ -462,7 +489,8 @@
         ],
         "helplinePhone": "1800-1030-222 (toll-free, 7am–11pm)",
         "tutorialVideoUrl": "https://www.youtube.com/watch?v=bP3d7vW2YXs",
-        "tutorialVideoLabel": "पुणे महानगरपालिका तक्रार-सूचना कशी नोंदवावी | How to register a complaint in Pune Municipal Corporation"
+        "tutorialVideoLabel": "पुणे महानगरपालिका तक्रार-सूचना कशी नोंदवावी | How to register a complaint in Pune Municipal Corporation",
+        "verifiedDate": "2026-10-23"
       },
       "general_fallback": {
         "authorityName": "PMC — General Citizen Grievance",
@@ -478,7 +506,8 @@
         ],
         "helplinePhone": "1800-1030-222 (toll-free, 7am–11pm)",
         "tutorialVideoUrl": "https://www.youtube.com/watch?v=bP3d7vW2YXs",
-        "tutorialVideoLabel": "पुणे महानगरपालिका तक्रार-सूचना कशी नोंदवावी | How to register a complaint in Pune Municipal Corporation"
+        "tutorialVideoLabel": "पुणे महानगरपालिका तक्रार-सूचना कशी नोंदवावी | How to register a complaint in Pune Municipal Corporation",
+        "verifiedDate": "2026-10-23"
       }
     },
     "ahmedabad": {
@@ -498,7 +527,8 @@
         ],
         "helplinePhone": "155303",
         "tutorialVideoUrl": "https://www.youtube.com/watch?v=1eYqSy7vDCQ",
-        "tutorialVideoLabel": "How to Register Complaints Through the AMC Portal: Step-by-Step Guide"
+        "tutorialVideoLabel": "How to Register Complaints Through the AMC Portal: Step-by-Step Guide",
+        "verifiedDate": "2026-10-23"
       },
       "streetlight": {
         "authorityName": "AMC — Street Lighting",
@@ -516,7 +546,8 @@
         ],
         "helplinePhone": "155303",
         "tutorialVideoUrl": "https://www.youtube.com/watch?v=1eYqSy7vDCQ",
-        "tutorialVideoLabel": "How to Register Complaints Through the AMC Portal: Step-by-Step Guide"
+        "tutorialVideoLabel": "How to Register Complaints Through the AMC Portal: Step-by-Step Guide",
+        "verifiedDate": "2026-10-23"
       },
       "water": {
         "authorityName": "AMC — Water Supply Department",
@@ -534,7 +565,8 @@
         ],
         "helplinePhone": "155303",
         "tutorialVideoUrl": "https://www.youtube.com/watch?v=1eYqSy7vDCQ",
-        "tutorialVideoLabel": "How to Register Complaints Through the AMC Portal: Step-by-Step Guide"
+        "tutorialVideoLabel": "How to Register Complaints Through the AMC Portal: Step-by-Step Guide",
+        "verifiedDate": "2026-10-23"
       },
       "general_fallback": {
         "authorityName": "AMC — General Citizen Grievance",
@@ -552,7 +584,8 @@
         ],
         "helplinePhone": "155303",
         "tutorialVideoUrl": "https://www.youtube.com/watch?v=1eYqSy7vDCQ",
-        "tutorialVideoLabel": "How to Register Complaints Through the AMC Portal: Step-by-Step Guide"
+        "tutorialVideoLabel": "How to Register Complaints Through the AMC Portal: Step-by-Step Guide",
+        "verifiedDate": "2026-10-23"
       }
     }
   }

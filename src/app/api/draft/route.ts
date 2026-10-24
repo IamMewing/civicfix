@@ -58,6 +58,12 @@ Rules:
     const completion = await client.chat.completions.create({
       model: GROQ_MODEL,
       temperature: 0.4,
+      // See the matching comment in /api/classify: reasoning_effort: "none" stops
+      // this model from quietly burning hidden chain-of-thought tokens against
+      // Groq's free-tier 1000-tokens/minute output cap. 700 completion tokens is
+      // comfortably enough for the few-hundred-word complaint this route writes.
+      reasoning_effort: "none",
+      max_completion_tokens: 700,
       messages: [{ role: "user", content: prompt }],
     });
 
