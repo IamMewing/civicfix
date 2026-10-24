@@ -20,6 +20,7 @@
 "use client";
 
 import { useState } from "react";
+import { linkifyText } from "@/lib/linkify";
 
 interface HandoffStepProps {
   authorityName: string;
@@ -108,7 +109,7 @@ export default function HandoffStep({
 
       <div className="rounded-2xl border-2 border-signal/25 bg-signal-soft px-4 py-4">
         <pre className="whitespace-pre-wrap rounded-xl bg-paper px-3 py-3 font-sans text-sm leading-relaxed">
-          {complaintText}
+          {linkifyText(complaintText)}
         </pre>
         <button
           type="button"

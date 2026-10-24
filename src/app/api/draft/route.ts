@@ -50,10 +50,17 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Missing category or authority." }, { status: 400 });
   }
 
+  // A plain Google Maps link built straight from the coordinates — no API key needed,
+  // nothing for the model to invent (this is string templating, not an AI call), and it
+  // flows into the drafted complaint via the "Location: <verbatim>" instruction below.
+  // Officials can open it directly, and CivicFix's own UI renders it as a real clickable
+  // link wherever the complaint text is shown (see src/lib/linkify.tsx).
+  const mapLink = location ? `https://www.google.com/maps?q=${location.lat},${location.lng}` : null;
+
   const locationText = location
     ? location.placeName
-      ? `${location.placeName} (coordinates: ${location.lat.toFixed(6)}, ${location.lng.toFixed(6)})`
-      : `Latitude ${location.lat.toFixed(6)}, Longitude ${location.lng.toFixed(6)}`
+      ? `${location.placeName} (coordinates: ${location.lat.toFixed(6)}, ${location.lng.toFixed(6)}) — Map: ${mapLink}`
+      : `Latitude ${location.lat.toFixed(6)}, Longitude ${location.lng.toFixed(6)} — Map: ${mapLink}`
     : "Location not provided";
 
   // See CATEGORY_CONFLICT_KEYWORDS above: a description naming a different problem than

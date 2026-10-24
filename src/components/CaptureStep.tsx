@@ -29,6 +29,7 @@ import LocationPicker from "@/components/LocationPicker";
 import { PotholeIcon, StreetlightIcon, WaterLeakIcon } from "@/components/icons/CategoryIcons";
 import { CameraIcon, GalleryIcon } from "@/components/icons/CaptureIcons";
 import type { ClassifyResult, DraftResult, GeoLocation, IssueCategory, ResearchResult } from "@/lib/types";
+import { linkifyText } from "@/lib/linkify";
 
 async function fileToBase64(file: File): Promise<{ base64: string; mimeType: string }> {
   return new Promise((resolve, reject) => {
@@ -606,7 +607,7 @@ export default function CaptureStep() {
             >
               <div className="font-display mb-2 text-lg font-black text-signal">Drafted complaint</div>
               <pre className="whitespace-pre-wrap rounded-xl bg-paper px-3 py-3 font-sans text-sm leading-relaxed">
-                {editedComplaintText}
+                {linkifyText(editedComplaintText)}
               </pre>
               <button
                 type="button"
