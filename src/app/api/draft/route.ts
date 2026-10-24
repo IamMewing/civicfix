@@ -36,14 +36,16 @@ export async function POST(request: NextRequest) {
   const prompt = `You are drafting a civic complaint for CivicFix, to be filed with an Indian government authority.
 
 Details:
-- Category: ${category}
-- Description from the reporter: ${description || "(none provided — infer a reasonable one-line description from the category alone)"}
+- Category (already determined by AI photo analysis of the actual uploaded image — this is authoritative): ${category}
+- Description typed by the reporter (free-text, may be incomplete, vague, mistyped, or describe a different issue than the photo — do NOT let it override the category above): ${description || "(none provided — infer a reasonable one-line description from the category alone)"}
 - Location: ${locationText}
 - Responsible authority: ${authority.authorityName}
 
-Write a short, clear, polite, properly formatted civic complaint, ready to paste into an official grievance form. Structure it with exactly these labeled lines, each on its own line:
-Subject: <one-line subject>
-Issue: <2-3 sentence description of the problem, professional tone>
+Write a short, clear, polite, properly formatted civic complaint, ready to paste into an official grievance form. The complaint you write — including the "Issue" line — MUST describe a "${category}" problem, because that's what the photo actually shows and what "${authority.authorityName}" will be asked to fix. If the reporter's typed description conflicts with "${category}" (for example it mentions a different kind of problem), trust the category: write the Issue around the category, and only borrow non-conflicting details (severity, specifics like "near the bus stop") from the description — never let it change what kind of problem the complaint is about.
+
+Structure it with exactly these labeled lines, each on its own line:
+Subject: <one-line subject, about a "${category}" problem>
+Issue: <2-3 sentence description of the "${category}" problem, professional tone>
 Location: <the location given above, verbatim>
 Category: <the category>
 Requested Action: <one sentence requesting the authority inspect/repair/resolve this>
