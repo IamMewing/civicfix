@@ -31,22 +31,93 @@ import { CameraIcon, GalleryIcon } from "@/components/icons/CaptureIcons";
 import type { ClassifyResult, DraftResult, GeoLocation, IssueCategory, ResearchResult } from "@/lib/types";
 import { linkifyText } from "@/lib/linkify";
 
-async function fileToBase64(file: File): Promise<{ base64: string; mimeType: string }> {
+// Real bug found during demo testing: a reporter's phone (different camera than the one
+// this app was developed/tested on) can produce a camera photo several times larger than
+// what was ever actually tested. Sent at full resolution, the base64-encoded payload can
+// exceed Vercel's platform-level request body cap (4.5MB) — a limit enforced before the
+// request ever reaches /api/classify, so it comes back as a plain-text "Request Entity
+// Too Large" response. That isn't JSON, so the old code's `res.json()` call failed with a
+// garbled "Unexpected token 'R'..." error instead of ever explaining what went wrong.
+//
+// The real fix is to never send a huge photo in the first place: resize/re-compress every
+// photo client-side before it's ever uploaded. A vision model doesn't need (and can't use)
+// full camera resolution anyway, so this costs no real classification accuracy while
+// keeping uploads fast and reliably small, on any phone.
+const MAX_IMAGE_DIMENSION = 1600;
+const IMAGE_JPEG_QUALITY = 0.82;
+
+function readFileAsDataUrl(file: File): Promise<string> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = () => {
-      const result = reader.result;
-      if (typeof result !== "string") {
-        reject(new Error("Could not read the selected file."));
-        return;
-      }
-      const [header, base64] = result.split(",");
-      const mimeMatch = header.match(/^data:(.*);base64$/);
-      resolve({ base64, mimeType: mimeMatch?.[1] ?? file.type ?? "image/jpeg" });
+      if (typeof reader.result === "string") resolve(reader.result);
+      else reject(new Error("Could not read the selected file."));
     };
     reader.onerror = () => reject(new Error("Could not read the selected file."));
     reader.readAsDataURL(file);
   });
+}
+
+function loadImageElement(src: string): Promise<HTMLImageElement> {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    img.onload = () => resolve(img);
+    img.onerror = () => reject(new Error("Could not open the selected photo. Try a different one."));
+    img.src = src;
+  });
+}
+
+async function fileToBase64(file: File): Promise<{ base64: string; mimeType: string }> {
+  const dataUrl = await readFileAsDataUrl(file);
+
+  let img: HTMLImageElement;
+  try {
+    img = await loadImageElement(dataUrl);
+  } catch {
+    // Couldn't decode it as an image at all (corrupt file, unsupported format) — let the
+    // original upload through as a last resort rather than blocking the reporter outright.
+    const [header, base64] = dataUrl.split(",");
+    const mimeMatch = header.match(/^data:(.*);base64$/);
+    return { base64, mimeType: mimeMatch?.[1] ?? file.type ?? "image/jpeg" };
+  }
+
+  const scale = Math.min(1, MAX_IMAGE_DIMENSION / Math.max(img.width, img.height));
+  const canvas = document.createElement("canvas");
+  canvas.width = Math.max(1, Math.round(img.width * scale));
+  canvas.height = Math.max(1, Math.round(img.height * scale));
+  const ctx = canvas.getContext("2d");
+  if (!ctx) {
+    // No canvas 2D context available for some reason — fall back to the original file
+    // rather than failing the capture; most photos will still be small enough.
+    const [header, base64] = dataUrl.split(",");
+    const mimeMatch = header.match(/^data:(.*);base64$/);
+    return { base64, mimeType: mimeMatch?.[1] ?? file.type ?? "image/jpeg" };
+  }
+  ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+  const resizedDataUrl = canvas.toDataURL("image/jpeg", IMAGE_JPEG_QUALITY);
+  const [, base64] = resizedDataUrl.split(",");
+  return { base64, mimeType: "image/jpeg" };
+}
+
+// Safety net for every API call below: a non-2xx response isn't guaranteed to be JSON —
+// a platform-level rejection (like the oversized-photo case above, or any other infra
+// error) can come back as plain text or HTML. Calling res.json() directly on that throws
+// a cryptic "Unexpected token" error instead of a message a reporter can understand.
+async function safeJson(res: Response): Promise<Record<string, unknown>> {
+  const text = await res.text();
+  try {
+    return JSON.parse(text) as Record<string, unknown>;
+  } catch {
+    if (!res.ok) {
+      throw new Error(
+        res.status === 413
+          ? "That photo was too large to upload. Try again — photos are now resized automatically, so this shouldn't happen, but a very large file might still need a moment."
+          : `Something went wrong (server said: ${res.statusText || res.status}). Please try again.`,
+      );
+    }
+    throw new Error("Got an unexpected response from the server. Please try again.");
+  }
 }
 
 type LocationStatus = "idle" | "requesting" | "granted" | "denied";
@@ -185,11 +256,11 @@ export default function CaptureStep() {
             : classification.reasoning,
         }),
       });
-      const data = await res.json();
+      const data = await safeJson(res);
       if (!res.ok) {
-        throw new Error(data.error || "Drafting the complaint failed.");
+        throw new Error((data.error as string) || "Drafting the complaint failed.");
       }
-      const draftResult = data as DraftResult;
+      const draftResult = data as unknown as DraftResult;
       setDraft(draftResult);
       setEditedComplaintText(draftResult.complaintText);
       setStepStatus("draft", "done");
@@ -212,11 +283,11 @@ export default function CaptureStep() {
           citySlug: location?.citySlug ?? null,
         }),
       });
-      const data = await res.json();
+      const data = await safeJson(res);
       if (!res.ok) {
-        throw new Error(data.error || "Authority research failed.");
+        throw new Error((data.error as string) || "Authority research failed.");
       }
-      const authority = data as ResearchResult;
+      const authority = data as unknown as ResearchResult;
       setResearch(authority);
       setStepStatus("research", "done");
       await runDraft(classification, authority);
@@ -248,11 +319,11 @@ export default function CaptureStep() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ imageBase64: base64, imageMimeType: mimeType, description }),
       });
-      const data = await res.json();
+      const data = await safeJson(res);
       if (!res.ok) {
-        throw new Error(data.error || "Classification failed.");
+        throw new Error((data.error as string) || "Classification failed.");
       }
-      const classification = data as ClassifyResult;
+      const classification = data as unknown as ClassifyResult;
       setResult(classification);
       setStepStatus("classify", "done");
       // Only chase authority research + a draft when this is actually a civic
