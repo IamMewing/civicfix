@@ -14,6 +14,29 @@ import { NextRequest, NextResponse } from "next/server";
 import { getGroqClient, GROQ_MODEL } from "@/lib/groq";
 import type { DraftRequestBody, DraftResult } from "@/lib/types";
 
+// Real bug found during demo testing: asking the model to "trust the category over a
+// conflicting description" in the prompt wasn't reliable — with reasoning disabled (see
+// the max_completion_tokens comment below), the model sometimes echoed whatever subject
+// matter the reporter typed, even when it named a different problem than the photo was
+// actually classified as (e.g. category="water" but description="potholes" produced a
+// pothole-themed Issue line under a "Category: water" label). Asking the model to resolve
+// a conflict isn't reliable, so this resolves it in code instead, the same way
+// /api/research cross-checks the model's answer against verified data rather than trusting
+// it blindly: if the typed description contains words for a category other than the one
+// the photo was classified as, that description is never sent to the model at all.
+const CATEGORY_CONFLICT_KEYWORDS: Record<string, string[]> = {
+  pothole: ["pothole", "potholes", "road damage", "crater", "broken road", "cracked road", "road surface"],
+  streetlight: ["streetlight", "street light", "streetlights", "street lamp", "lamp post", "no light", "dark street", "bulb", "lighting"],
+  water: ["water leak", "waterlog", "drainage", "sewage", "sewer", "leaking pipe", "stagnant water", "flooding", "pipe burst", "pipeline"],
+};
+
+function descriptionConflictsWithCategory(description: string, category: string): boolean {
+  const lower = description.toLowerCase();
+  return Object.entries(CATEGORY_CONFLICT_KEYWORDS).some(
+    ([otherCategory, words]) => otherCategory !== category && words.some((word) => lower.includes(word)),
+  );
+}
+
 export async function POST(request: NextRequest) {
   let body: DraftRequestBody;
   try {
@@ -33,15 +56,22 @@ export async function POST(request: NextRequest) {
       : `Latitude ${location.lat.toFixed(6)}, Longitude ${location.lng.toFixed(6)}`
     : "Location not provided";
 
+  // See CATEGORY_CONFLICT_KEYWORDS above: a description naming a different problem than
+  // the photo-classified category is dropped entirely, never handed to the model.
+  const descriptionConflicts = Boolean(description) && descriptionConflictsWithCategory(description, category);
+  const descriptionForPrompt = descriptionConflicts
+    ? `(the reporter's typed text described a different kind of problem than what the photo was actually classified as, so it's been left out — write the Issue from the verified "${category}" classification alone)`
+    : description || "(none provided — infer a reasonable one-line description from the category alone)";
+
   const prompt = `You are drafting a civic complaint for CivicFix, to be filed with an Indian government authority.
 
 Details:
-- Category (already determined by AI photo analysis of the actual uploaded image — this is authoritative): ${category}
-- Description typed by the reporter (free-text, may be incomplete, vague, mistyped, or describe a different issue than the photo — do NOT let it override the category above): ${description || "(none provided — infer a reasonable one-line description from the category alone)"}
+- Category (determined by AI photo analysis of the actual uploaded image): ${category}
+- Description typed by the reporter: ${descriptionForPrompt}
 - Location: ${locationText}
 - Responsible authority: ${authority.authorityName}
 
-Write a short, clear, polite, properly formatted civic complaint, ready to paste into an official grievance form. The complaint you write — including the "Issue" line — MUST describe a "${category}" problem, because that's what the photo actually shows and what "${authority.authorityName}" will be asked to fix. If the reporter's typed description conflicts with "${category}" (for example it mentions a different kind of problem), trust the category: write the Issue around the category, and only borrow non-conflicting details (severity, specifics like "near the bus stop") from the description — never let it change what kind of problem the complaint is about.
+Write a short, clear, polite, properly formatted civic complaint, ready to paste into an official grievance form. The complaint — including the "Issue" line — must describe a "${category}" problem, because that's what the photo shows and what "${authority.authorityName}" will be asked to fix.
 
 Structure it with exactly these labeled lines, each on its own line:
 Subject: <one-line subject, about a "${category}" problem>
