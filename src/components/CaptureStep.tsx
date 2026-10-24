@@ -175,6 +175,13 @@ export default function CaptureStep() {
           description,
           location,
           authority,
+          // Only forward this when it's a real photo-analysis sentence — the manual-
+          // override path (handleCategoryOverride) replaces it with a placeholder
+          // ("Category corrected manually by the reporter"), which isn't actual detail
+          // about the photo and shouldn't be fed to the draft prompt as if it were.
+          photoReasoning: classification.reasoning.startsWith("Category corrected manually")
+            ? undefined
+            : classification.reasoning,
         }),
       });
       const data = await res.json();

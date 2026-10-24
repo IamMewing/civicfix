@@ -103,6 +103,15 @@ export interface DraftRequestBody {
   description: string;
   location: GeoLocation | null;
   authority: ResearchResult;
+  // The classify step's own one-sentence read of the actual photo (ClassifyResult.
+  // reasoning) — e.g. "stagnant water and trash, indicating a drainage/sewage issue".
+  // "water" (and "pothole"/"streetlight") is a coarse bucket covering several distinct
+  // real problems (a drainage leak vs. a supply shortage are both "water"); without
+  // this, draft had nothing but that bucket to go on whenever the reporter's own typed
+  // description got dropped for conflicting with it (see /api/draft), and would guess
+  // the wrong specific problem. Optional because a manually-overridden category has no
+  // real photo reasoning behind it (see CaptureStep's manual-override path).
+  photoReasoning?: string;
 }
 
 export interface DraftResult {

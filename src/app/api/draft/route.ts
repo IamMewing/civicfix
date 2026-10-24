@@ -45,7 +45,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ error: "Request body must be valid JSON." }, { status: 400 });
   }
 
-  const { category, description, location, authority } = body;
+  const { category, description, location, authority, photoReasoning } = body;
   if (!category || !authority) {
     return NextResponse.json({ error: "Missing category or authority." }, { status: 400 });
   }
@@ -67,11 +67,12 @@ export async function POST(request: NextRequest) {
 
 Details:
 - Category (determined by AI photo analysis of the actual uploaded image): ${category}
+${photoReasoning ? `- What the photo actually shows (from that same photo analysis — this is the most specific, reliable detail available, more specific than the category bucket alone; "${category}" can cover several distinct real problems, e.g. a drainage leak vs. a water-supply shortage are both "water"): ${photoReasoning}` : ""}
 - Description typed by the reporter: ${descriptionForPrompt}
 - Location: ${locationText}
 - Responsible authority: ${authority.authorityName}
 
-Write a short, clear, polite, properly formatted civic complaint, ready to paste into an official grievance form. The complaint — including the "Issue" line — must describe a "${category}" problem, because that's what the photo shows and what "${authority.authorityName}" will be asked to fix.
+Write a short, clear, polite, properly formatted civic complaint, ready to paste into an official grievance form. The complaint — including the "Issue" line — must describe the specific "${category}" problem detailed above${photoReasoning ? " in \"What the photo actually shows\"" : ""}, because that's what the photo shows and what "${authority.authorityName}" will be asked to fix. Do not default to a generic or merely "typical" version of a "${category}" problem — ground the Issue in the actual specifics given, not an assumption.
 
 Structure it with exactly these labeled lines, each on its own line:
 Subject: <one-line subject, about a "${category}" problem>
